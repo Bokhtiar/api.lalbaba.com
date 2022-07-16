@@ -69,74 +69,77 @@ class SubCategoryController extends Controller
 
 
 
-    // /**
-    //  * Show the form for editing the specified resource.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function edit($id)
-    // {
-    //     try {
-    //         $edit = Category::query()->FindId($id);
-    //         return view('admin.modules.category.createOrUpdate', compact('edit'));
-    //     } catch (\Throwable $th) {
-    //         throw $th;
-    //     }
-    // }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        try {
+            $categories = Category::query()->Active()->get(['category_id', 'name']);
+            $edit = SubCategory::query()->FindId($id);
+            return view('admin.modules.subcategory.createOrUpdate', compact('edit', 'categories'));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 
-    // /**
-    //  * Update the specified resource in storage.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function update(Request $request, $id)
-    // {
-    //     $validated = Category::query()->Validation($request->all());
-    //     if($validated){
-    //         try{
-    //             DB::beginTransaction();
-    //             $category = Category::query()->FindId($id);
-    //             $reqImage = $request->image;
-    //             if($reqImage){
-    //                 $image = Category::query()->Image($request);
-    //             }else{
-    //                 $categoryImage = $category->image;
-    //             }
-    //             $categoryU = $category->update([
-    //                 'name' => $request->name,
-    //                 'image' => $reqImage ? $image : $categoryImage,
-    //             ]);
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $validated = SubCategory::query()->Validation($request->all());
+        if($validated){
+            try{
+                DB::beginTransaction();
+                $subcategory = SubCategory::query()->FindId($id);
+               
+                $reqImage = $request->image;
+                if($reqImage){
+                    $image = SubCategory::query()->Image($request);
+                }else{
+                    $subcategoryImage = $subcategory->image;
+                }
+                $categoryU = $subcategory->update([
+                    'name' => $request->name,
+                    'category_id' => $request->category_id,
+                    'image' => $reqImage ? $image : $subcategoryImage,
+                ]);
 
-    //             if (!empty($categoryU)) {
-    //                 DB::commit();
-    //                 return redirect()->route('admin.category.index')->with('success','category Created successfully!');
-    //             }
-    //             throw new \Exception('Invalid About Information');
-    //         }catch(\Exception $ex){
-    //             return back()->withError($ex->getMessage());
-    //             DB::rollBack();
-    //         }
-    //     }
-    // }
+                if (!empty($categoryU)) {
+                    DB::commit();
+                    return redirect()->route('admin.subcategory.index')->with('success','subcategory Created successfully!');
+                }
+                throw new \Exception('Invalid About Information');
+            }catch(\Exception $ex){
+                return back()->withError($ex->getMessage());
+                DB::rollBack();
+            }
+        }
+    }
 
-    // /**
-    //  * Remove the specified resource from storage.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function destroy($id)
-    // {
-    //     try {
-    //         Category::query()->FindId($id)->delete();
-    //         return redirect()->route('admin.category.index')->with('success','category Deleted Successfully!');
-    //     } catch (\Throwable $th) {
-    //         throw $th;
-    //     }
-    // }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        try {
+            SubCategory::query()->FindId($id)->delete();
+            return redirect()->route('admin.subcategory.index')->with('success','Subcategory Deleted Successfully!');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 
     public function status($id)
     {

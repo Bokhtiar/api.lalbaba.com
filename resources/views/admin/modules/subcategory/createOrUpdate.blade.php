@@ -44,7 +44,7 @@
         <div class="card-body">
             <h5 class="card-title">Sub Category {{ @$edit ? 'Update' : 'Create' }} Form <a href="@route('admin.subcategory.index')" class="btn btn-sm btn-success"><i class="ri-list-unordered"></i></a></h5>
             @if (@$edit)
-                <form action="@route('admin.subcategory.update', @$edit->category_id)" method="POST" enctype="multipart/form-data">
+                <form action="@route('admin.subcategory.update', @$edit->sub_category_id)" method="POST" enctype="multipart/form-data">
                     @method('put')
                 @else
                     <form action="@route('admin.subcategory.store')" method="post" enctype="multipart/form-data">
@@ -58,10 +58,10 @@
                 </div>
 
                 <div class="col-md-6 col-lg-6 my-2">
-                    <label for="">Select Category</label>
+                    <label for="">Select Category <span class="text-danger">*</span></label>
                     <select class="form-control" name="category_id" id="">
                         @foreach ($categories as $cat)
-                            <option value="{{ $cat->category_id }}">{{ $cat->name }}</option>
+                            <option value="{{ $cat->category_id }}"{{ $cat->category_id == @$edit->category_id ? 'Selected' : "" }}>{{ $cat->name }}</option>
                         @endforeach
                     </select>
                 </div>
