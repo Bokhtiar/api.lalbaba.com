@@ -48,6 +48,8 @@ Route::middleware(['auth:api', 'cors'])->group(function () {
 });
 
 Route::group(['middleware' => ['cors']], function () {
+    /*verify email code */
+    Route::post('/verify/email', [App\Http\Controllers\api\VerifyController::class, 'emailVerification']);
     /*reset Password */
     Route::post('/password/reset', [App\Http\Controllers\Auth\ApiAuthController::class, 'resetPassword']);
    

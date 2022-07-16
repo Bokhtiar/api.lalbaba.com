@@ -20,17 +20,29 @@ class ApiAuthController extends Controller
     /*regestration */
     public function register (Request $request) {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'verify_code' => 'required',
+            'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:6|confirmed',
         ]);
         if ($validator->fails())
         {
             return response(['errors'=>$validator->errors()->all()], 422);
         }
-        $request['password']=Hash::make($request['password']);
-        $request['remember_token'] = Str::random(10);
-        $user = User::create($request->toArray());
+
+        // $request['password']=Hash::make($request['password']);
+        // $request['remember_token'] = Str::random(10);
+        //$user = User::create($request->toArray());
+
+        $user = User::where('email', $request->email)->where('verify_code', $request->verify_code)->where('password', null)->first();
+        if(!$user){
+            return $this->ErrorResponse('Something Wrong...!');
+        }
+        
+
+        $user->password = Hash::make($request['password']);
+        //$user->remember_token = Str::random(10);
+        $user->save();
+        
         $token = $user->createToken('Laravel Password Grant Client')->accessToken;
         $response = ['token' => $token];
 
@@ -42,6 +54,7 @@ class ApiAuthController extends Controller
 
         return response($response, 200);
     }
+
     /*Login */
     public function login (Request $request) {
         $validator = Validator::make($request->all(), [
@@ -67,10 +80,12 @@ class ApiAuthController extends Controller
             return response($response, 422);
         }
     }
+
      /*profile*/
     public function userProfile() {
         return response()->json(auth()->user());
     }
+
      /*reset Password*/
     public function resetPassword(Request $request){
         $existEmail = User::where('email', $request->email)->first();
@@ -92,6 +107,7 @@ class ApiAuthController extends Controller
             $message = "New Password Send Your Mail...";
             return $this->SuccessResponse($message);
     }
+
      /*change Password*/
     public function changePassword(Request $request){
         $this->validate($request,[
@@ -119,6 +135,7 @@ class ApiAuthController extends Controller
                 return $this->ErrorResponse($message);
             }
     }
+
      /*logout*/
     public function logout (Request $request) {
         $token = $request->user()->token();
