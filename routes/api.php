@@ -57,6 +57,8 @@ Route::group(['middleware' => ['cors']], function () {
     Route::get('/banner/list', [App\Http\Controllers\Api\BannerController::class, 'index']);
     /*category*/
     Route::get('/category/list', [App\Http\Controllers\Api\CategoryController::class, 'index']);
+    /*sub category*/
+    Route::get('/subcategory/list', [App\Http\Controllers\Api\SubCategoryController::class, 'index']);
     /*product*/
     Route::get('/product/list/{type?}', [App\Http\Controllers\Api\ProductController::class, 'index']);
     Route::post('/product/search', [App\Http\Controllers\Api\ProductController::class, 'search']);
