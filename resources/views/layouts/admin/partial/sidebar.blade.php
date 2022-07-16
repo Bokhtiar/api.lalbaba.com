@@ -45,6 +45,25 @@
         </ul>
       </li><!-- End Forms Nav -->
 
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-subcategory" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Sub Category</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-subcategory" class="nav-content collapse " data-bs-parent="#sidebar-subcategory">
+          <li>
+            <a href="@route('admin.subcategory.index')">
+              <i class="bi bi-circle"></i><span>List Of SubCategory</span>
+            </a>
+          </li>
+          <li>
+            <a href="@route('admin.subcategory.create')">
+              <i class="bi bi-circle"></i><span>Create Of SubCategory</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End subcategory Nav -->
+
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-product" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i><span>Product</span><i class="bi bi-chevron-down ms-auto"></i>

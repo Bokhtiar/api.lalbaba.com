@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SubCategoryController;
 use App\Mail\PasswordReset;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -37,7 +38,11 @@ Route::group(["as"=>'admin.', "prefix"=>'admin', "middleware"=>['auth','admin']]
     Route::resource('category', CategoryController::class);
     Route::get('category/status/{id}', [CategoryController::class, 'status'])->name('category.status');
 
-    /*category */
+    /*Sub category */
+    Route::resource('subcategory', SubCategoryController::class);
+    Route::get('subcategory/status/{id}', [SubCategoryController::class, 'status'])->name('subcategory.status');
+
+    /*Product */
     Route::resource('product', ProductController::class);
     Route::get('product/status/{id}', [ProductController::class, 'status'])->name('product.status');
 
@@ -51,11 +56,11 @@ Route::group(["as"=>'admin.', "prefix"=>'admin', "middleware"=>['auth','admin']]
 });
 
 
-Route::get('send-mail', function () {
-    $details = [
-    'title' => 'Mail from localhost.com',
-    'body' => 'This is for testing email using smtp'
-    ];
-    \Mail::to('bokhtiar.swe@gmail.com')->send(new PasswordReset($details));
-    dd("Email is Sent.");
-    });
+// Route::get('send-mail', function () {
+//     $details = [
+//     'title' => 'Mail from localhost.com',
+//     'body' => 'This is for testing email using smtp'
+//     ];
+//     \Mail::to('bokhtiar.swe@gmail.com')->send(new PasswordReset($details));
+//     dd("Email is Sent.");
+//     });
