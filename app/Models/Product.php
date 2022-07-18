@@ -22,20 +22,30 @@ class Product extends Model
         'product_id',
         'name',
         'category_id',
+        'subcategory_id',
         'category_name',
-        'price',
+        'regular_price',
+        'discount_price',
+        'discount_percent',
+        'discount_tag',
         'body',
         'image',
         'type',
         'quantity',
-        'alert_quantity'
+        'product_unit',
+        'alert_quantity',
+        'variant'
+    ];
+
+    protected $casts = [
+        'variant' => 'array',
     ];
 
     public function scopeValidation($value, $request){
         return Validator::make($request, [
             'name' => 'string | required | min:3',
             'category_id' => 'required',
-            'price' => 'required',
+            'regular_price' => 'required',
             'body' => 'required',
             'type' => 'required',
             'quantity' => 'required',

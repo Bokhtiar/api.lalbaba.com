@@ -57,12 +57,16 @@ Route::group(['middleware' => ['cors']], function () {
     Route::get('/banner/list', [App\Http\Controllers\Api\BannerController::class, 'index']);
     /*category*/
     Route::get('/category/list', [App\Http\Controllers\Api\CategoryController::class, 'index']);
+    Route::get('/category/ways/subcategory', [App\Http\Controllers\Api\CategoryController::class, 'categoryWaysSubcategory']);
     /*sub category*/
     Route::get('/subcategory/list', [App\Http\Controllers\Api\SubCategoryController::class, 'index']);
     /*product*/
     Route::get('/product/list/{type?}', [App\Http\Controllers\Api\ProductController::class, 'index']);
     Route::post('/product/search', [App\Http\Controllers\Api\ProductController::class, 'search']);
     Route::get('/category/product/{id?}/{type?}', [App\Http\Controllers\Api\ProductController::class, 'categoryProduct']);
+    Route::get('/subcategory/product/{id?}/{type?}', [App\Http\Controllers\Api\ProductController::class, 'subCategoryProduct']);
     Route::get('/product/show/{id?}', [App\Http\Controllers\Api\ProductController::class, 'show']);
 });
+
+
 

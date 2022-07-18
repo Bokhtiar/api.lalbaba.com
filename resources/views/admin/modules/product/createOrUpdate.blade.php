@@ -2,6 +2,7 @@
 @section('title', @$edit ? 'Product Update' : 'Product Create')
 
 @section('css')
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <style>
         .zoom:hover {
             transform: scale(2.5);
@@ -52,6 +53,52 @@
             @endif
             @csrf
             <section class="form-group row">
+
+
+
+                {{-- <div class="row">
+                    <div class="col-lg-12">
+                        <div id="inputFormRow">
+                            <div class="input-group mb-3">
+                                <input type="text" name="variant[id]" class="form-control m-input" hidden autocomplete="off">
+                                <input type="text" name="variant[title]" class="form-control m-input" placeholder="Enter title" autocomplete="off">
+                                <input type="text" name="variant[price]" class="form-control m-input" placeholder="Enter price" autocomplete="off">
+                                <div class="input-group-append">
+                                    <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <div id="newRow"></div>
+                        <button id="addRow" type="button" class="btn btn-info">Add Row</button>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    // add row
+                    $("#addRow").click(function () {
+                        var html = '';
+                        html += '<div id="inputFormRow">';
+                        html += '<div class="input-group mb-3">';
+                        html += '<input type="text" name="variant[id]" class="form-control m-input" hidden autocomplete="off">'
+                        html += '<input type="text" name="variant[title]" class="form-control m-input" placeholder="Enter title" autocomplete="off">';
+                        html += '<input type="text" name="variant[price]" class="form-control m-input" placeholder="Enter price" autocomplete="off">';
+                        html += '<div class="input-group-append">';
+                        html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
+                        html += '</div>';
+                        html += '</div>';
+                
+                        $('#newRow').append(html);
+                    });
+                
+                    // remove row
+                    $(document).on('click', '#removeRow', function () {
+                        $(this).closest('#inputFormRow').remove();
+                    });
+                </script> --}}
+
+
+
                 <div class="col-md-12 col-lg-12 my-2">
                     <label for="" class="form-label">Product Name <span class="text-danger">*</span></label>
                     <input required type="text" class="form-control" name="name" value="{{ @$edit->name }}"
@@ -71,11 +118,54 @@
                     </select>
                 </div>
 
-                <div class="col-sm-12 col-md-6 col-lg-6 my-2">
-                    <label for="" class="form-label">Product Price <span class="text-danger">*</span></label>
-                    <input required type="text" class="form-control" name="price" value="{{ @$edit->price }}"
-                        placeholder="type here Product Price">
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                    <label class="form-label" for="">Select SubCategory </label>
+                    <select name="subcategory_id" class="form-control" id="">
+                        <option value="">--select SubCategory--</option>
+                        @foreach ($subcategories as $sub)
+                            <option value="{{ $sub->sub_category_id }}"
+                                {{ $sub->subcategory_id == @$edit->subcategory_id ? 'selected' : '' }}>{{ $sub->name }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
+
+                <div class="col-sm-12 col-md-6 col-lg-6 my-2">
+                    <label for="" class="form-label">Product Regular Price <span class="text-danger">*</span></label>
+                    <input required type="text" class="form-control" name="regular_price" value="{{ @$edit->regular_price }}"
+                        placeholder="type here Product Regular Price">
+                </div>
+
+
+                <div class="col-sm-12 col-md-6 col-lg-6 my-2">
+                    <label for="" class="form-label">Product Discount Price </label>
+                    <input  type="text" class="form-control" name="discount_price" value="{{ @$edit->discount_price }}"
+                        placeholder="type here Product Discount Price">
+                </div>
+
+                <div class="col-sm-12 col-md-4 col-lg-4 my-2">
+                    <label for="" class="form-label">Product Discount Percent </label>
+                    <input  type="text" class="form-control" name="discount_percent" value="{{ @$edit->discount_percent }}"
+                        placeholder="type here Product Discount Percent">
+                </div>
+                
+                <div class="col-sm-12 col-md- col-lg-6 my-2">
+                    <label for="" class="form-label">Product Discount Tag </label>
+                    <input  type="text" class="form-control" name="discount_tag" value="{{ @$edit->discount_tag }}"
+                        placeholder="type here Product Discount Tag">
+                </div>
+
+
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <label class="form-label" for="">Select Unit</label>
+                    <select name="product_unit" class="form-control" id="">
+                        <option value="">--select Unit--</option>
+                        <option value="kg" {{ @$edit->product_unit == 'kg' ? 'selected' : '' }}>KG</option>
+                        <option value="gm" {{ @$edit->product_unit == 'gm' ? 'selected' : '' }}>GM</option>
+                        <option value="pc" {{ @$edit->product_unit == 'pc' ? 'selected' : '' }}>PC</option>
+                    </select>
+                </div>
+
 
                 <div class="col-md-4 col-lg-4 my-2">
                     <label for="" class="form-label">Product Image <span class="text-danger">*</span></label>

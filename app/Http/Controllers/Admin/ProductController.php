@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -33,7 +34,8 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::query()->Active()->get(['category_id', 'name', 'status']);
-        return view('admin.modules.product.createOrUpdate', compact('categories'));
+        $subcategories = SubCategory::query()->Active()->get(['sub_category_id', 'name', 'status']);
+        return view('admin.modules.product.createOrUpdate', compact('categories','subcategories'));
     }
 
     /**
@@ -46,26 +48,36 @@ class ProductController extends Controller
     {
         $validated = Product::query()->Validation($request->all());
         if($validated){
-            try{
+            try{ 
                 $cat = Category::query()->FindId($request->category_id);
                 $cat_name = $cat->name;
                 DB::beginTransaction();
                 $image = Product::query()->Image($request);
+                $product = new Product;
+                $product->name = $request->name;
+                $product->category_id = $request->category_id;
+                $product->subcategory_id = $request->subcategory_id;
+                $product->category_name = $cat_name;
 
-                $product = Product::create([
-                    'name' => $request->name,
-                    'category_id' => $request->category_id,
-                    'category_name' => $cat_name,
-                    'price' => $request->price,
-                    'body' => $request->body,
-                    'image' => $image,
-                    'type' => $request->type,
-                    'quantity' => $request->quantity,
-                    'alert_quantity' => $request->alert_quantity,
-                ]);
+                $product->regular_price = $request->regular_price;
+                $product->discount_price = $request->discount_price;
+                $product->discount_percent = $request->discount_percent;
+                $product->discount_tag = $request->discount_tag;
+                $product->product_unit = $request->product_unit;
+
+
+                $product->body = $request->body;
+                $product->image = $image;
+                $product->type = $request->type;
+                $product->quantity = $request->quantity;
+                $product->alert_quantity = $request->alert_quantity;
+
+                
+                
 
                 if (!empty($product)) {
                     DB::commit();
+                    $product->save();
                     return redirect()->route('admin.product.index')->with('success','Product Created successfully!');
                 }
                 throw new \Exception('Invalid About Information');
@@ -102,8 +114,9 @@ class ProductController extends Controller
     {
         try {
             $categories = Category::query()->Active()->get(['category_id', 'name', 'status']);
+            $subcategories = SubCategory::query()->Active()->get(['sub_category_id', 'name', 'status']);
             $edit = Product::query()->FindId($id);
-            return view('admin.modules.product.createOrUpdate', compact('categories', 'edit'));
+            return view('admin.modules.product.createOrUpdate', compact('categories', 'edit','subcategories'));
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -136,8 +149,16 @@ class ProductController extends Controller
                 $productU = $product->update([
                     'name' => $request->name,
                     'category_id' => $request->category_id,
+                    'subcategory_id' => $request->subcategory_id,
                     'category_name' => $cat_name,
-                    'price' => $request->price,
+                    
+                    'regular_price' => $request->regular_price,
+                    'discount_price' => $request->discount_price,
+                    'discount_percent' => $request->discount_percent,
+                    'discount_tag' => $request->discount_tag,
+                    'product_unit' => $request->product_unit,
+
+
                     'body' => $request->body,
                     'image' => $reqImage ? $image : $ProductImage,
                     'quantity' => $request->quantity,

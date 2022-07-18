@@ -53,4 +53,16 @@ class ProductController extends Controller
         }
     }
 
+    public function subCategoryProduct(Request $request)
+    {
+        //dd($request->id .''. $request->type);
+        try {
+            $results = Product::query()->Delivery($request->type)
+                    ->where('subcategory_id', $request->id)->Active()->get();
+            return $this->SuccessResponse($results);
+        } catch (\Throwable $th) {
+            return $this->ErrorResponse($th->getMessage());
+        }
+    }
+
 }
