@@ -80,7 +80,12 @@ class VariantController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $show = ProductVariant::find($id);
+            return view('admin.modules.product.variant.show', compact('show'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Somthing Wrong..!');
+        }
     }
 
     /**
@@ -91,7 +96,13 @@ class VariantController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $products = Product::all();
+            $edit = ProductVariant::find($id);
+            return view('admin.modules.product.variant.createOrUpdate', compact('edit', 'products'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something Wrong');
+        }
     }
 
     /**
@@ -103,7 +114,28 @@ class VariantController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = ProductVariant::query()->Validation($request->all());
+        if($validated){
+            try{ 
+                DB::beginTransaction();
+                $product = ProductVariant::find($id);
+                $product->title = $request->title;
+                $product->product_id = $request->product_id;
+                $product->sell_price = $request->sell_price;
+                $product->discount_price = $request->discount_price;
+                $product->total_quantity = $request->total_quantity;
+                $product->alert_quantity = $request->alert_quantity;
+                if (!empty($product)) {
+                    DB::commit();
+                    $product->save();
+                    return redirect()->route('admin.variant.index')->with('success','Product Variant Created successfully!');
+                }
+                throw new \Exception('Invalid About Information');
+            }catch(\Exception $ex){
+                return back()->withError($ex->getMessage());
+                DB::rollBack();
+            }
+        }
     }
 
     /**
