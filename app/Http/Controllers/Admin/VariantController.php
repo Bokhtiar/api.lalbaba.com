@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
+use App\Models\ProductVariant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class VariantController extends Controller
 {
@@ -14,7 +17,12 @@ class VariantController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $variants = ProductVariant::get(['product_variant_id', 'title', 'sell_price', 'status', 'discount_price', 'product_id']);
+            return view('admin.modules.product.variant.index', compact('variants'));
+        } catch (\Throwable $th) {
+            return redirect()->route('admin.variant.index')->with('error', 'Something Wrong...!');
+        }
     }
 
     /**
@@ -24,7 +32,12 @@ class VariantController extends Controller
      */
     public function create()
     {
-        //
+        try {
+            $products = Product::all();
+            return view('admin.modules.product.variant.createOrUpdate', compact('products'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', "Something Wrong...!");
+        }
     }
 
     /**
@@ -35,7 +48,28 @@ class VariantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = ProductVariant::query()->Validation($request->all());
+        if($validated){
+            try{ 
+                DB::beginTransaction();
+                $product = new ProductVariant();
+                $product->title = $request->title;
+                $product->product_id = $request->product_id;
+                $product->sell_price = $request->sell_price;
+                $product->discount_price = $request->discount_price;
+                $product->total_quantity = $request->total_quantity;
+                $product->alert_quantity = $request->alert_quantity;
+                if (!empty($product)) {
+                    DB::commit();
+                    $product->save();
+                    return redirect()->route('admin.variant.index')->with('success','Product Variant Created successfully!');
+                }
+                throw new \Exception('Invalid About Information');
+            }catch(\Exception $ex){
+                return back()->withError($ex->getMessage());
+                DB::rollBack();
+            }
+        }
     }
 
     /**

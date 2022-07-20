@@ -81,7 +81,7 @@
           </li>
 
           <li>
-            <a href="@route('admin.variant.create')">
+            <a href="@route('admin.variant.index')">
               <i class="bi bi-circle"></i><span>List Of Product Variants</span>
             </a>
           </li>
