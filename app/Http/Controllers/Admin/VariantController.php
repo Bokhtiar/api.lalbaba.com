@@ -114,6 +114,24 @@ class VariantController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        try {
+            ProductVariant::query()->FindId($id)->delete();
+            return redirect()->route('admin.variant.index')->with('success','Product Variant Deleted Successfully!');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    
+    }
+
+    public function status($id)
+    {
+        try {
+            $product = ProductVariant::query()->FindID($id); //self trait
+            ProductVariant::query()->Status($product); // crud trait
+            return redirect()->route('admin.variant.index')->with('warning','Product Variant Status Change successfully!');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 }

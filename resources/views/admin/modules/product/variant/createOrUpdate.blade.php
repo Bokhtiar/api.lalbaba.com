@@ -43,7 +43,7 @@
             {{-- form validation errors end --}}
         </div>
         <div class="card-body">
-            <h5 class="card-title">Product Variant {{ @$edit ? 'Update' : 'Create' }} Form <a href="@route('admin.product.index')"
+            <h5 class="card-title">Product Variant {{ @$edit ? 'Update' : 'Create' }} Form <a href="@route('admin.variant.index')"
                     class="btn btn-sm btn-success"><i class="ri-list-unordered"></i></a></h5>
             @if (@$edit)
                 <form action="@route('admin.variant.update', @$edit->product_variant_id)" method="POST" enctype="multipart/form-data">
@@ -90,15 +90,15 @@
                 </div>
 
                 <div class="col-sm-12 col-md-5 col-lg-5 my-2">
-                    <label for="" class="form-label">Product Variant Quantity <span class="text-danger">*</span></label>
-                    <input required type="number" class="form-control" name="total_quantity" value="{{ @$edit->total_quantity }}"
+                    <label for="" class="form-label">Product Variant Quantity </label>
+                    <input  type="number" class="form-control" name="total_quantity" value="{{ @$edit->total_quantity }}"
                         placeholder="type here Product Quantity">
                 </div>
 
 
                 <div class="col-sm-12 col-md-7 col-lg-7 my-2">
-                    <label for="" class="form-label">Product Variant Alert Quantity <span class="text-danger">*</span></label>
-                    <input required type="text" class="form-control" name="alert_quantity" value="{{ @$edit->alert_quantity }}"
+                    <label for="" class="form-label">Product Variant Alert Quantity </label>
+                    <input  type="text" class="form-control" name="alert_quantity" value="{{ @$edit->alert_quantity }}"
                         placeholder="type here Product Alert Quantity">
                 </div>
 

@@ -33,7 +33,7 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">Product Variant Table  <a class="btn btn-sm btn-success" href="@route('admin.product.create')"> <i class="ri-add-box-line"></i> </a>  </h5>
+                        <h5 class="card-title">Product Variant Table  <a class="btn btn-sm btn-success" href="@route('admin.variant.create')"> <i class="ri-add-box-line"></i> </a>  </h5>
 
                         <!-- Table with stripped rows -->
                         <table class="table datatable">
