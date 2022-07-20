@@ -14,7 +14,14 @@ class CreateProductVariantsTable extends Migration
     public function up()
     {
         Schema::create('product_variants', function (Blueprint $table) {
-            $table->id();
+            $table->id('product_variant_id');
+            $table->integer('product_id')->require();
+            $table->string('title')->require();
+            $table->string('sell_price')->require();
+            $table->string('discount_price')->nullable();
+            $table->string('total_quantity')->nullable();
+            $table->string('alert_quantity')->nullable();
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
     }

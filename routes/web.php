@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\VariantController;
 use App\Mail\PasswordReset;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +46,8 @@ Route::group(["as"=>'admin.', "prefix"=>'admin', "middleware"=>['auth','admin']]
     /*Product */
     Route::resource('product', ProductController::class);
     Route::get('product/status/{id}', [ProductController::class, 'status'])->name('product.status');
+    Route::resource('variant', VariantController::class);
+    Route::get('variant/status/{id}', [VariantController::class, 'status'])->name('variant.status');
 
     /*order */
     Route::group(["as"=>'order.', "prefix"=>'order'],function(){

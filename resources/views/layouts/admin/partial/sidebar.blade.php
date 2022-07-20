@@ -79,6 +79,18 @@
               <i class="bi bi-circle"></i><span>Create Of Product</span>
             </a>
           </li>
+
+          <li>
+            <a href="@route('admin.variant.create')">
+              <i class="bi bi-circle"></i><span>List Of Product Variants</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="@route('admin.variant.create')">
+              <i class="bi bi-circle"></i><span>Create Of Product Variants</span>
+            </a>
+          </li>
         </ul>
       </li><!-- End Forms Nav -->
 
