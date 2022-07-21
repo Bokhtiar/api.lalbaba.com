@@ -31,6 +31,14 @@
                     <span> <b>Price : </b> {{ $show->price }} </span><br>
                     <span> <b>Delivery : </b> {{ $show->type }} </span><br>
                     <span> <b>Description : </b> {!! $show->body !!} </span><br>
+                    <span> <b>Properties : </b> <br>
+                        @foreach ($show->properties as $property)
+                            @if($property['title'] != null)
+                            <b>{{ $property['id'] }}</b>: {{ $property['title'] }} <b>{{ $property['price'] }}</b>: {{ $property['discount_price'] }}<br />
+                            @endif
+                            @endforeach
+                    </span><br>
+
                 </div>
             </div>
         </div>

@@ -71,7 +71,7 @@ class ProductController extends Controller
                 $product->type = $request->type;
                 $product->quantity = $request->quantity;
                 $product->alert_quantity = $request->alert_quantity;
-
+                $product->properties = $request->properties;
                 
                 
 
@@ -163,6 +163,7 @@ class ProductController extends Controller
                     'image' => $reqImage ? $image : $ProductImage,
                     'quantity' => $request->quantity,
                     'alert_quantity' => $request->alert_quantity,
+                    'properties' => $request->properties,
                 ]);
 
                 if (!empty($productU)) {

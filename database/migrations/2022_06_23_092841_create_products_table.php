@@ -26,9 +26,9 @@ class CreateProductsTable extends Migration
             $table->longText('body')->require();
             $table->string('image')->require();
             $table->string('type')->default('24/7');
-            $table->integer('')->default(1);
+            $table->integer('quantity')->default(1);
             $table->integer('alert_quantity')->default(1);
-            $table->longText('variant');
+            $table->json('properties');
             $table->string('product_unit');
             $table->tinyInteger('status')->default(0);
             $table->timestamps();

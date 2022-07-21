@@ -11,6 +11,18 @@ trait CrudTrait
         return $q->get();
     }
 
+    public function scopeDelivery($q, $request)
+    {
+        if($request == 'express'){
+            return $this->Express();
+        }else if($request == '24/7'){
+           return $this->H24d7();
+        }else{
+            $error = "Product Delivery Type Not Seleted";
+            return $this->ErrorResponse($error);
+        }
+    }
+    
     public function scopeInActive($q)
     {
         return $q->where('status',0);
@@ -26,17 +38,7 @@ trait CrudTrait
         return $q->where('type','24/7');
     }
 
-    public function scopeDelivery($q, $request)
-    {
-        if($request == 'express'){
-            return $this->Express();
-        }else if($request == '24/7'){
-           return $this->H24d7();
-        }else{
-            $error = "Product Delivery Type Not Seleted";
-            return $this->ErrorResponse($error);
-        }
-    }
+    
 
 
 

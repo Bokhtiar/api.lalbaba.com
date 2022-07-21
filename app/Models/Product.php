@@ -34,12 +34,26 @@ class Product extends Model
         'quantity',
         'product_unit',
         'alert_quantity',
-        'variant'
+        'properties'
     ];
 
     protected $casts = [
-        'variant' => 'array',
+        'properties' => 'array'
     ];
+
+
+    public function setPropertiesAttribute($value)
+    {
+        $properties = [];
+
+        foreach ($value as $array_item) {
+            if (!is_null($array_item['id'])) {
+                $properties[] = $array_item;
+            }
+        }
+
+        $this->attributes['properties'] = json_encode($properties);
+    }
 
     public function scopeValidation($value, $request){
         return Validator::make($request, [
@@ -78,10 +92,16 @@ class Product extends Model
     {
         self::where('quantity', 1);
     }
-
+    public function scopeVariant($q)
+    {
+        dd($q);
+    }
+    
 
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'category_id');
     }
+
+
 }

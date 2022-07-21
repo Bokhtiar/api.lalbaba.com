@@ -7,3 +7,5 @@ home page <br>
 @else
 <a class="btn btn-info text-light" href="@route('login')">Login</a>
 @endif
+
+

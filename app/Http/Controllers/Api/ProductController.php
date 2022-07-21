@@ -14,7 +14,10 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         try {
-            $results = Product::query()->Active()->Delivery($request->type)->get();
+            $results = Product::query()
+            ->Delivery($request->type)
+            ->Active()
+            ->get();
             return $this->SuccessResponse($results);
         } catch (\Throwable $th) {
             return $this->ErrorResponse($th->getMessage());

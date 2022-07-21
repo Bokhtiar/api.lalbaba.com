@@ -52,8 +52,40 @@
                     <form action="@route('admin.product.store')" method="post" enctype="multipart/form-data">
             @endif
             @csrf
+
+
             <section class="form-group row">
 
+                <div class="form-group">
+                    <label for="properties">Properties</label>
+                    <div class="row">
+                        
+                        <div class="col-md-4">
+                            title:
+                        </div>
+                        <div class="col-md-4">
+                            price:
+                        </div>
+                        <div class="col-md-4">
+                            discount_price:
+                        </div>
+                    </div>
+                    @for ($i=0; $i <= 4; $i++)
+                    <div class="row">
+                        
+                        <input type="text" hidden name="properties[{{ $i }}][id]" class="form-control" value="{{$i}}">
+                        <div class="col-md-4">
+                            <input type="text" name="properties[{{ $i }}][title]" class="form-control" value="{{ @$edit->properties[$i]['title'] ?? '' }}">
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" name="properties[{{ $i }}][price]" class="form-control" value="{{ @$edit->properties[$i]['price'] ?? '' }}">
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" name="properties[{{ $i }}][discount_price]" class="form-control" value="{{ @$edit->properties[$i]['discount_price'] ?? '' }}">
+                        </div>
+                    </div>
+                    @endfor
+                </div>
 
 
                 {{-- <div class="row">
