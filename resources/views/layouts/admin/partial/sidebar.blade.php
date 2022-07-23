@@ -103,7 +103,7 @@
             <a href="{{ url('admin/order/type','express') }}">
               <i class="bi bi-circle"></i><span>Express Order</span>
             </a>
-          </li>
+          </li> 
           <li>
             <a href="{{ url('admin/order/type','24') }}">
               <i class="bi bi-circle"></i><span>24/7 Order</span>

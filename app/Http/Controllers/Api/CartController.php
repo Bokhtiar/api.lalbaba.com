@@ -18,30 +18,43 @@ class CartController extends Controller
         $carts = Cart::where('user_id', Auth::id())
                 ->where('order_id', null)->get();
         return $this->SuccessResponse($carts);
-
     }
 
     public function store(Request $request)
     {
+        
         if(Cart::where('product_id',$request->id)->where('order_id',null)
-            ->where('user_id',Auth::id())->first()){
+            ->where('user_id',Auth::id())
+            ->where('property_id',$request->property_id)
+            ->first()){
 
             $update = Cart::where('product_id',$request->id)
             ->where('order_id',null)
-            ->where('ip_address',request()
-            ->ip())->first();
-            $update['quantity']=$update->quantity+1;
-            $update->save();
+            ->where('ip_address',request()->ip())
+            ->where('property_id',$request->property_id)
+            ->first();
+            dd($update);
+            if($request->qty == 1){
+                
+                $update['quantity']  = $update->quantity + 1;
+                $update->save();
+            }else{
+                $update['quantity'] = $update->quantity - 1;
+                $update->save();
+            }
+
             $message = "Quantity Update Successfully...!";
             return $this->SuccessResponse($message);
         }else{
             $product = Product::find($request->id);
+
             Cart::create([
                 'user_id'=> Auth::id(),
                 'product_id'=> $request->id,
+                'property_id' => $request->property_id,
                 'type' => $request->type,
                 'product_name' => $product->name,
-                'product_price' => $product->price,
+                'product_price' => $product->regular_price,
                 'product_image' => $product->image,
                 'ip_address'=> request()->ip(),
             ]);

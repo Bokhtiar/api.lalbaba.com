@@ -23,6 +23,7 @@ class Cart extends Model
         'order_id',
         'ip_address',
         'quantity',
+        'property_id',
         'type'
     ];
 

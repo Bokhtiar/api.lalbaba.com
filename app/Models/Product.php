@@ -35,6 +35,7 @@ class Product extends Model
         'product_unit',
         'alert_quantity',
         'properties'
+        
     ];
 
     protected $casts = [

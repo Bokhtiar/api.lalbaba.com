@@ -31,7 +31,7 @@ Route::middleware(['auth:api', 'cors'])->group(function () {
     Route::post('/password/change', [App\Http\Controllers\Auth\ApiAuthController::class, 'changePassword']);
 
     /* cart */
-    Route::post('/cart/store/{id?}/{type?}', [App\Http\Controllers\Api\CartController::class, 'store']);
+    Route::post('/cart/store/{id?}/{type?}/{property_id?}/{qty?}', [App\Http\Controllers\Api\CartController::class, 'store']);
     Route::post('/cart/update/{id?}', [App\Http\Controllers\Api\CartController::class, 'update']);
     Route::get('/cart/list', [App\Http\Controllers\Api\CartController::class, 'index']);
 
@@ -49,10 +49,9 @@ Route::middleware(['auth:api', 'cors'])->group(function () {
 
 Route::group(['middleware' => ['cors']], function () {
     /*verify email code */
-    Route::post('/verify/email', [App\Http\Controllers\api\VerifyController::class, 'emailVerification']);
+    Route::post('/verify/email', [App\Http\Controllers\Api\VerifyController::class, 'emailVerification']);
     /*reset Password */
     Route::post('/password/reset', [App\Http\Controllers\Auth\ApiAuthController::class, 'resetPassword']);
-   
     /*banner*/
     Route::get('/banner/list', [App\Http\Controllers\Api\BannerController::class, 'index']);
     /*category*/

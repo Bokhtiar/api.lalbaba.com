@@ -65,7 +65,6 @@ class ProductController extends Controller
                 $product->discount_tag = $request->discount_tag;
                 $product->product_unit = $request->product_unit;
 
-
                 $product->body = $request->body;
                 $product->image = $image;
                 $product->type = $request->type;
@@ -73,8 +72,6 @@ class ProductController extends Controller
                 $product->alert_quantity = $request->alert_quantity;
                 $product->properties = $request->properties;
                 
-                
-
                 if (!empty($product)) {
                     DB::commit();
                     $product->save();

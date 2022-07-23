@@ -20,6 +20,7 @@ class CreateCartsTable extends Migration
             $table->string('product_name')->require();
             $table->string('product_image')->require();
             $table->string('product_price')->require();
+            $table->string('property_id');
             $table->integer('order_id')->nullable();
             $table->string('ip_address');
             $table->integer('quantity')->default(1);

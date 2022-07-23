@@ -49,7 +49,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        dd($id);
     }
 
     /**

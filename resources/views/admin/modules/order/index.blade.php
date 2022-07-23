@@ -64,9 +64,7 @@
                                                 <a class="btn btn-warning btn-sm" href="@route('admin.order.status', $item->order_id)"><i
                                                         class="bi bi-exclamation-triangle"></i></a>
                                             @endif --}}
-                                            @if ($item->status <= 1)
-                                                    {{  }}
-                                            @endif
+       
                                         </td>
                                         <td class="form-inline">
                                             <a class="btn btn-sm btn-info text-light" href="@route('admin.order.show', $item->order_id)"> <i
