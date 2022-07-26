@@ -33,7 +33,7 @@ class CartController extends Controller
             ->where('ip_address',request()->ip())
             ->where('property_id',$request->property_id)
             ->first();
-            dd($update);
+          
             if($request->qty == 1){
                 
                 $update['quantity']  = $update->quantity + 1;
@@ -43,12 +43,15 @@ class CartController extends Controller
                 $update->save();
             }
 
-            $message = "Quantity Update Successfully...!";
-            return $this->SuccessResponse($message);
+            return response()->json([
+                "status" => true,
+                "message" => "Quantity updated successfully..!",
+                "qty" => $update->quantity
+            ],200);
         }else{
             $product = Product::find($request->id);
-
-            Cart::create([
+            
+            $cart = Cart::create([
                 'user_id'=> Auth::id(),
                 'product_id'=> $request->id,
                 'property_id' => $request->property_id,
@@ -58,8 +61,11 @@ class CartController extends Controller
                 'product_image' => $product->image,
                 'ip_address'=> request()->ip(),
             ]);
-            $message = "Card Added Successfully...!";
-            return $this->SuccessResponse($message);
+            return response()->json([
+                "status" => true,
+                "message" => "Cart Added successfully..!",
+                "qty" => 1
+            ],200);
         }
     }
 

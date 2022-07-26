@@ -48,7 +48,7 @@
                 <th scope="col">Property</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Action</th>
-              </tr>
+              </tr> 
             </thead>
             <tbody>
                 @foreach ($carts as $item)
