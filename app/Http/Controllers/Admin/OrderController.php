@@ -73,9 +73,10 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function cart_destroy($id)
     {
-        //
+        Cart::find($id)->delete();
+        return back()->with('success', 'Cart Item Deleted');
     }
 
     /**
@@ -86,6 +87,6 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }

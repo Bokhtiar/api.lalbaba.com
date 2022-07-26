@@ -55,6 +55,7 @@ Route::group(["as"=>'admin.', "prefix"=>'admin', "middleware"=>['auth','admin']]
         Route::get('/type/{type}', [App\Http\Controllers\Admin\OrderController::class, 'index']);
         Route::get('/show/{id}', [App\Http\Controllers\Admin\OrderController::class, 'show'])->name('show');
     });
+    Route::get('cart/destroy/{id}', [OrderController::class, 'cart_destroy']);
     Route::get('order/status/{id}', [ProductController::class, 'status'])->name('order.status');
 });
 

@@ -15,14 +15,39 @@
         </nav>
     </div><!-- End Page Title -->
 
+    <div class="row my-5">
+        <div class="col-md-4 col-lg-4 col-sm-12">
+            <h3>User Information</h3><hr>
+            <span><strong>Name: </strong> {{ $show->f_name .' '. $show->l_name }}</span> <br>
+            <span><strong>Email: </strong> {{ $show->email}}</span> <br>
+            <span><strong>Phone: </strong> {{ $show->phone }}</span> <br>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-12">
+            <h3>Location: </h3><hr>
+            <span><strong>Address 1: </strong> {{ $show->address_1 }}</span> <br>
+            <span><strong>Address 2: </strong> {{ $show->address_1}}</span> <br>
+            <span><strong>Message: </strong> {{ $show->message }}</span> <br>
+        </div>
+
+        <div class="col-md-4 col-lg-4 col-sm-12">
+            <h3>Paymets: </h3><hr>
+            <span><strong>Payments : </strong> {{ $show->payment_type }}</span> <br>
+            <span><strong>Payment Balance: </strong> {{ $show->payment_balance}}</span> <br>
+        </div>
+
+        
+    </div>
+
     <section class="container">
+        <h3>Cart Item List</h3>
         <table class="table">
             <thead>
               <tr>
                 <th scope="col">Index</th>
                 <th scope="col">Product Name</th>
                 <th scope="col">Property</th>
-                <th scope="col">Qty</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -33,12 +58,21 @@
                     <td>
                         @foreach ($item->product ? $item->product->properties : "" as $property)
                             @if($property['title'] != null && $property['id'] == $item->property_id)
-                            <b>{{ $property['id'] }}</b>: {{ $property['title'] }} <b>{{ $property['price'] }}</b>: {{ $property['discount_price'] }}<br />
+                            Name: {{ $property['title'] }} <br>
+                            Sell Price: <b>{{ $property['price'] }} Taka</b> <br>
+                            Discount Price: {{ $property['discount_price'] }} Taka
                             @endif
                         @endforeach
                     </td>
+                    <td class="form-inline">
+                       <form action="@route('admin.order.update', $item->cart_id)">
+                            @method('put')
+                            <input type="text" class="" name="quantity" value="{{ $item->quantity }}" id="">
+                            <input type="submit" class="btn btn-sm btn-success" value="Update" id="">
+                        </form>
+                    </td>
                     <td>
-                        {{ $item->quantity }}
+                        <a href="{{ url('admin/cart/destroy', $item->cart_id) }}" class="btn btn-sm btn-danger">Delete</a>
                     </td>
                 </tr>
                 @endforeach
