@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -49,7 +50,9 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        dd($id);
+        $show = Order::find($id);
+        $carts = Cart::where('order_id', $id)->get();
+        return view('admin.modules.order.show', compact('show', 'carts'));
     }
 
     /**
