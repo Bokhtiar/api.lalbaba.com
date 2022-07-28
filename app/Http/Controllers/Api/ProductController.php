@@ -46,7 +46,6 @@ class ProductController extends Controller
 
     public function categoryProduct(Request $request)
     {
-        //dd($request->id .''. $request->type);
         try {
             $results = Product::query()->Delivery($request->type)
                     ->where('category_id', $request->id)->Active()->get();

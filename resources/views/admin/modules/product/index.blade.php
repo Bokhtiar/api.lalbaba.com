@@ -41,6 +41,7 @@
                                 <tr>
                                     <th scope="col">SL</th>
                                     <th scope="col">Name</th>
+                                    <th scope="col">Type</th>
                                     <th scope="col">Image</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Action</th>
@@ -48,9 +49,11 @@
                             </thead>
                             <tbody>
                                 @forelse ($products as $item)
+                          
                                     <tr>
                                         <th scope="row">{{ $loop->index + 1 }}</th>
                                         <td>{{ $item->name }}</td>
+                                        <td>{{ $item->type }}</td>
                                         <td> <img class="zoom" src="{{asset($item->image)}}" width="80px" height="80px" alt=""> </td>
                                         <td>
                                             @if ($item->status == 1)

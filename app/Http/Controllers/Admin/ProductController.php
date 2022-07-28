@@ -19,7 +19,7 @@ class ProductController extends Controller
     public function index()
     {
         try {
-            $products = Product::latest()->get(['product_id', 'image', 'name', 'status']);
+            $products = Product::latest()->get(['product_id', 'image', 'name', 'type', 'status']);
             return view('admin.modules.product.index', compact('products'));
         } catch (\Throwable $th) {
             throw $th;
@@ -33,7 +33,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::query()->Active()->get(['category_id', 'name', 'status']);
+        $categories = Category::query()->Active()->get(['category_id', 'name', 'type', 'status']);
         $subcategories = SubCategory::query()->Active()->get(['sub_category_id', 'name', 'status']);
         return view('admin.modules.product.createOrUpdate', compact('categories','subcategories'));
     }

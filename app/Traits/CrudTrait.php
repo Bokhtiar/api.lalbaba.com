@@ -15,8 +15,8 @@ trait CrudTrait
     {
         if($request == 'express'){
             return $this->Express();
-        }else if($request == '24/7'){
-           return $this->H24d7();
+        }else if($request == 'alltime'){
+           return $this->alltime();
         }else{
             $error = "Product Delivery Type Not Seleted";
             return $this->ErrorResponse($error);
@@ -33,9 +33,9 @@ trait CrudTrait
         return $q->where('type', 'express');
     }
 
-    public function scopeH24d7($q)
+    public function scopealltime($q)
     {
-        return $q->where('type','24/7');
+        return $q->where('type','alltime');
     }
 
     

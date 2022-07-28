@@ -56,7 +56,7 @@
 
             <section class="form-group row">
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="properties">Properties</label>
                     <div class="row">
                         
@@ -70,6 +70,7 @@
                             discount_price:
                         </div>
                     </div>
+                    
                     @for ($i=0; $i <= 4; $i++)
                     <div class="row">
                         
@@ -85,49 +86,61 @@
                         </div>
                     </div>
                     @endfor
-                </div>
+                </div> --}}
 
 
-                {{-- <div class="row">
-                    <div class="col-lg-12">
-                        <div id="inputFormRow">
-                            <div class="input-group mb-3">
-                                <input type="text" name="variant[id]" class="form-control m-input" hidden autocomplete="off">
-                                <input type="text" name="variant[title]" class="form-control m-input" placeholder="Enter title" autocomplete="off">
-                                <input type="text" name="variant[price]" class="form-control m-input" placeholder="Enter price" autocomplete="off">
-                                <div class="input-group-append">
-                                    <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
-                                </div>
-                            </div>
-                        </div>
-            
-                        <div id="newRow"></div>
-                        <button id="addRow" type="button" class="btn btn-info">Add Row</button>
-                    </div>
-                </div>
 
-                <script type="text/javascript">
-                    // add row
-                    $("#addRow").click(function () {
-                        var html = '';
-                        html += '<div id="inputFormRow">';
-                        html += '<div class="input-group mb-3">';
-                        html += '<input type="text" name="variant[id]" class="form-control m-input" hidden autocomplete="off">'
-                        html += '<input type="text" name="variant[title]" class="form-control m-input" placeholder="Enter title" autocomplete="off">';
-                        html += '<input type="text" name="variant[price]" class="form-control m-input" placeholder="Enter price" autocomplete="off">';
-                        html += '<div class="input-group-append">';
-                        html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
-                        html += '</div>';
-                        html += '</div>';
-                
-                        $('#newRow').append(html);
-                    });
-                
-                    // remove row
-                    $(document).on('click', '#removeRow', function () {
-                        $(this).closest('#inputFormRow').remove();
-                    });
-                </script> --}}
+
+                <table class="table table-bordered" id="dynamicAddRemove">
+                    <tr>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th>Discount Price</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="hidden" name="properties[0][id]" placeholder="Enter id" class="form-control" value="0" />
+                          <input type="text" value="" name="properties[0][title]" placeholder="Enter title" class="form-control" />
+                        </td>
+                        <td>
+                          <input type="text" name="properties[0][price]" placeholder="Enter price" class="form-control" />
+                        </td>
+                        <td>
+                          <input type="text" name="properties[0][discount_price]" placeholder="Enter Discount Price" class="form-control" />
+                        </td>
+                        <td><button type="button" name="add" id="add-product" class="btn btn-outline-primary">Add Product</button></td>
+                    </tr>
+                </table>
+             
+    <!-- JavaScript -->
+   
+    <script type="text/javascript">
+        var i = 0;
+        $("#add-product").click(function () {
+            ++i;
+            $("#dynamicAddRemove").append('<tr><td><input type="hidden" name="properties['+i+'][id]" value="'+i+'" /><input type="text" name="properties['+i+'][title]" placeholder="Enter title" class="form-control" /></td><td><input type="text" name="properties['+i+'][price]" placeholder="Enter Price" class="form-control" /></td><td><input type="text" name="properties['+i+'][discount_price]" placeholder="Enter Discount Price" class="form-control" /></td><td><button type="button" class="btn btn-danger remove-tr">Remove</button></td></tr>');
+        });
+        $(document).on('click', '.remove-input-field', function () {
+            $(this).parents('tr').remove();
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
 
 
 
@@ -215,7 +228,7 @@
                     <select name="type" class="form-control" id="">
                         <option value="express" {{ @$edit->type == 'express' ? 'selected' : '' }}>Express Delivery
                         </option>
-                        <option value="24/7" {{ @$edit->type == '24/7' ? 'selected' : '' }}>24/7 Delivery</option>
+                        <option value="alltime" {{ @$edit->type == 'alltime' ? 'selected' : '' }}>All Times Delivery</option>
                     </select>
                 </div>
 
