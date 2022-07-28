@@ -23,8 +23,15 @@ class Order extends Model
         'type',
         'address_1',
         'address_2',
-        'message',
+        'message', 
         'user_id',
+        
+        'ordered',
+        'packed',
+        'out_for_delivery',
+        'delivered',
+        'payment_number',
+        
         'payment_type',
         'payment_balance',
         'status'

@@ -24,6 +24,14 @@ class CreateOrdersTable extends Migration
             $table->string('address_2')->require();
             $table->string('message')->require();
             $table->integer('user_id')->require();
+
+            $table->tinyInteger('ordered')->default(0);
+            $table->tinyInteger('packed')->default(0);
+            $table->tinyInteger('out_for_delivery')->default(0);
+            $table->tinyInteger('delivered')->default(0);
+            $table->string('payment_number')->require();
+
+
             $table->string('payment_type')->require();
             $table->integer('payment_balance')->require();
             $table->tinyInteger('status')->default(0);

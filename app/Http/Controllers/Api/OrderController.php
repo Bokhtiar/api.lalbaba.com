@@ -32,6 +32,7 @@ class OrderController extends Controller
                     'address_1' => $request->address_1,
                     'address_2' => $request->address_2,
                     'message' => $request->message,
+                    'payment_number' => $request->payment_number,
                     'payment_type' => $request->payment_type,
                     'payment_balance' => $request->payment_balance,
                 ]);
