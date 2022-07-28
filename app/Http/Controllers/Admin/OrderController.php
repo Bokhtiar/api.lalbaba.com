@@ -16,30 +16,9 @@ class OrderController extends Controller
      */
     public function index($type)
     {
-        $type == "24" ? $type = '24/7' : $type;
+        $type == "alltime" ? $type = 'alltime' : $type;
         $orders = Order::where('type', $type)->get(['order_id','f_name', 'l_name', 'email', 'phone', 'type', 'status']);
         return view('admin.modules.order.index', compact('orders'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -61,11 +40,48 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function packed($id)
     {
-        //
+        $model = Order::find($id);
+        if($model->packed == 0){
+            $model->packed = 1;
+            $model->save();
+            return back();
+        }else{
+            $model->packed = 0;
+            $model->save();
+            return back();
+        }
     }
 
+    public function out_for_delivery($id)
+    {
+        $model = Order::find($id);
+        if($model->out_for_delivery == 0){
+            $model->out_for_delivery = 1;
+            $model->save();
+            return back();
+        }else{
+            $model->out_for_delivery = 0;
+            $model->save();
+            return back();
+        }
+    }
+
+    public function delivered($id)
+    {
+        $model = Order::find($id);
+        if($model->delivered == 0){
+            $model->delivered = 1;
+            $model->save();
+            return back();
+        }else{
+            $model->delivered = 0;
+            $model->save();
+            return back();
+        }
+    }
+    
     /**
      * Update the specified resource in storage.
      *

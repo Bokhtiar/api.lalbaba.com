@@ -31,12 +31,15 @@
 
         <div class="col-md-4 col-lg-4 col-sm-12">
             <h3>Paymets: </h3><hr>
-            <span><strong>Payments : </strong> {{ $show->payment_type }}</span> <br>
+            <span><strong>Payments Types : </strong> {{ $show->payment_type }}</span> <br>
+            <span><strong>Payment Number: </strong> {{ $show->payment_number}}</span> <br>
             <span><strong>Payment Balance: </strong> {{ $show->payment_balance}}</span> <br>
         </div>
 
         
     </div>
+
+    
 
     <section class="container">
         <h3>Cart Item List</h3>
@@ -80,6 +83,51 @@
           </table>
     </section>
 
+
+    <div class="">
+        <div class="card">
+            <div class="card-header">
+                <h3>Order History</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 col-lg-3 col-sm-12 text-center">
+                        <h5>Ordered</h5>
+                        <a class="badge rounded-pill bg-success" href="">Complete</a>
+                    </div>
+                    <div class="col-md-3 col-lg-3 col-sm-12 text-center">
+                        <h5>Packed</h5>
+                        @if ($show->packed == 0)
+                            <a class="badge rounded-pill bg-danger" href="@route('admin.order.packed', $show->order_id)">No-Complete</a>
+                        @else 
+                            <a class="badge rounded-pill bg-success" href="@route('admin.order.packed', $show->order_id)">Complete</a>
+                        @endif
+                    </div>
+                    @if ($show->packed ==1)
+                    <div class="col-md-3 col-lg-3 col-sm-12 text-center">
+                        <h5>Out For Delivery</h5>
+                        @if ($show->out_for_delivery == 0)
+                            <a class="badge rounded-pill bg-danger" href="@route('admin.order.out_for_delivery', $show->order_id)">No-Complete</a>
+                        @else 
+                            <a class="badge rounded-pill bg-success" href="@route('admin.order.out_for_delivery', $show->order_id)">Complete</a>
+                        @endif
+                    </div>
+                    @endif
+                    @if ($show->out_for_delivery ==1 && $show->packed == 1)
+                    <div class="col-md-3 col-lg-3 col-sm-12 text-center">
+                        <h5> Delivered</h5>
+                        @if ($show->delivered == 0)
+                            <a class="badge rounded-pill bg-danger" href="@route('admin.order.delivered', $show->order_id)">No-Complete</a>
+                        @else 
+                            <a class="badge rounded-pill bg-success" href="@route('admin.order.delivered', $show->order_id)">Complete</a>
+                        @endif
+                    </div>
+                    @endif
+                    
+                </div>
+            </div>
+        </div>
+    </div>
 
 @section('js')
 @endsection
