@@ -17,8 +17,26 @@ class CartController extends Controller
     {
         $carts = Cart::where('user_id', Auth::id())
                 ->where('order_id', null)->get();
-        return $this->SuccessResponse($carts);
+        
+        $total_cart_price = 0;
+        foreach ($carts as $c) {
+            $total_cart_price += $c->total_price;
+        }
+        return response()->json([
+            "status" => true,
+            "data" => $carts,
+            "message" => "Cart List..!",
+            "total_cart_price" => $total_cart_price,
+        ],200);
     }
+
+    public function updatePrice($cart)
+    {
+        $price = Cart::find($cart->cart_id);
+        $price->total_price = $price->quantity * $price->product_price;
+        $price->save();
+    }
+
 
     public function store(Request $request)
     {
@@ -35,18 +53,47 @@ class CartController extends Controller
             ->first();
           
             if($request->qty == 1){
-                
                 $update['quantity']  = $update->quantity + 1;
                 $update->save();
+
+                $this->updatePrice($update);
+
+                $total_price = Cart::find($update->cart_id);
+                $p = $total_price->total_price;
+
+                $carts = Cart::where('user_id', Auth::id())
+                                ->where('order_id', null)
+                                ->get();
+                $total_cart_price = 0;
+                foreach ($carts as $c) {
+                    $total_cart_price += $c->total_price;
+                }
+
             }else{
                 $update['quantity'] = $update->quantity - 1;
                 $update->save();
+                $this->updatePrice($update);
+
+                $total_price = Cart::find($update->cart_id);
+                $p = $total_price->total_price;
+
+
+                $carts = Cart::where('user_id', Auth::id())
+                                ->where('order_id', null)
+                                ->get();
+
+                $total_cart_price = 0;
+                foreach ($carts as $c) {
+                    $total_cart_price += $c->total_price;
+                }
             }
 
             return response()->json([
                 "status" => true,
                 "message" => "Quantity updated successfully..!",
-                "qty" => $update->quantity
+                "qty" => $update->quantity,
+                "total_price" => $p,
+                "total_cart_price" => $total_cart_price
             ],200);
         }else{
             $product = Product::find($request->id);
@@ -61,10 +108,22 @@ class CartController extends Controller
                 'product_image' => $product->image,
                 'ip_address'=> request()->ip(),
             ]);
+            $this->updatePrice($cart);
+
+            $carts = Cart::where('user_id', Auth::id())
+                        ->where('order_id',null)
+                        ->get();
+
+            $total_cart_price = 0;
+            foreach ($carts as $c) {
+                $total_cart_price += $c->total_price;
+            }
+
             return response()->json([
                 "status" => true,
                 "message" => "Cart Added successfully..!",
-                "qty" => 1
+                "qty" => 1,
+                "total_cart_price" => $total_cart_price,
             ],200);
         }
     }

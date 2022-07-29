@@ -19,6 +19,7 @@ class Cart extends Model
         'product_id',
         'product_name',
         'product_image',
+        'total_price',
         'product_price',
         'order_id',
         'ip_address',
