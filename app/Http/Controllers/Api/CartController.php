@@ -76,7 +76,7 @@ class CartController extends Controller
 
                 $total_price = Cart::find($update->cart_id);
                 $p = $total_price->total_price;
-
+ 
 
                 $carts = Cart::where('user_id', Auth::id())
                                 ->where('order_id', null)
@@ -108,6 +108,7 @@ class CartController extends Controller
                 'product_image' => $product->image,
                 'ip_address'=> request()->ip(),
             ]);
+            dd('test');
             $this->updatePrice($cart);
 
             $carts = Cart::where('user_id', Auth::id())
