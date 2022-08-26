@@ -17,7 +17,8 @@ class CreateBannersTable extends Migration
             $table->id('banner_id');
             $table->string('title')->require();
             $table->string('image')->require();
-            $table->longText('body')->require();
+            $table->longText('body')->nullable();
+            $table->string('link')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });

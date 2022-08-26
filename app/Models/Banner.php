@@ -20,13 +20,13 @@ class Banner extends Model
         'banner_id',
         'title',
         'body',
+        'link',
         'image'
     ];
 
     public function scopeValidation($value, $request){
         return Validator::make($request, [
             'title' => 'string | required | max:15 | min:3',
-            'body' => 'required',
         ])->validate();
 
     }

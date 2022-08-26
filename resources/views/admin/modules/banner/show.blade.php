@@ -26,7 +26,15 @@
                     <img src="{{ asset($show->image) }}" height="auto" width="100%" alt="">
                 </div>
                 <div class="col-sm-12 col-md-7 col-lg-7">
-                    {!! $show->body !!}
+                    <span><strong>Title:</strong> {!! $show->title !!} </span> <br>
+                    @isset($show->link)
+                        <span> <strong>Link:</strong> {!! $show->link !!} </span> <br>
+                    @endisset
+                    @isset($show->body)
+                        <span> <strong>Description:</strong> {!! $show->body !!} </span> <br>
+                    @endisset
+                   
+                    
                 </div>
             </div>
         </div>

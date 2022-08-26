@@ -50,6 +50,7 @@ class BannerController extends Controller
                 $banner = Banner::create([
                     'title' => $request->title,
                     'body' => $request->body,
+                    'link' => $request->link,
                     'image' => $image
                 ]);
 
@@ -120,6 +121,7 @@ class BannerController extends Controller
                 $bannerU = $banner->update([
                     'title' => $request->title,
                     'body' => $request->body,
+                    'link' => $request->link,
                     'image' => $reqImage ? $image : $bannerImage,
                 ]);
 

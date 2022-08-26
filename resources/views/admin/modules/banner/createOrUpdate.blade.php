@@ -67,8 +67,15 @@
                     </div>
                     @endisset
                 </div>
+
+                <div class="col-md-12 col-lg-12 my-2">
+                    <label for="" class="form-label">Banner Link <span class="text-danger"></span></label>
+                    <input required type="text" class="form-control" name="link" value="{{ @$edit->link }}"
+                        placeholder="type here Banner Link">
+                </div>
+                
                 <div class="col-md-12 col-lg-12">
-                    <label for="">Banner Body <span class="text-danger">*</span></label>
+                    <label for="">Banner Body <span class="text-danger"></span></label>
                     <textarea name="body" rows="10" cols="5" class="form-control">
                        {!! @$edit->body !!}
                       </textarea><!-- End TinyMCE Editor -->
