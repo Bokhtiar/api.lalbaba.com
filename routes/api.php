@@ -54,6 +54,8 @@ Route::group(['middleware' => ['cors']], function () {
     Route::post('/password/reset', [App\Http\Controllers\Auth\ApiAuthController::class, 'resetPassword']);
     /*banner*/
     Route::get('/banner/list', [App\Http\Controllers\Api\BannerController::class, 'index']);
+     /*banner*/
+     Route::get('/banner-bundle', [App\Http\Controllers\Api\BannerBundleController::class, 'index']);
     /*category*/
     Route::get('/category/list', [App\Http\Controllers\Api\CategoryController::class, 'index']);
     Route::get('/category/ways/subcategory', [App\Http\Controllers\Api\CategoryController::class, 'categoryWaysSubcategory']);

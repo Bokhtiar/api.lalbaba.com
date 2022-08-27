@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BannerBundleController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
@@ -34,6 +35,10 @@ Route::group(["as"=>'admin.', "prefix"=>'admin', "middleware"=>['auth','admin']]
     /*banner */
     Route::resource('banner', BannerController::class);
     Route::get('banner/status/{id}', [BannerController::class, 'status'])->name('banner.status');
+
+    /**banner bundle */
+    Route::resource('banner-bundle', BannerBundleController::class);
+    Route::get('banner-bundle/status/{id}', [BannerBundleController::class, 'status'])->name('banner-bundle.status');
 
     /*category */
     Route::resource('category', CategoryController::class);

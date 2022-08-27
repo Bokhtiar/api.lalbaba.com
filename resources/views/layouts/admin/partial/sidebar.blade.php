@@ -27,6 +27,24 @@
         </ul>
       </li><!-- End Forms Nav -->
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-banner1" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Banner Bundle</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-banner1" class="nav-content collapse " data-bs-parent="#sidebar-banner">
+          <li>
+            <a href="@route('admin.banner-bundle.index')">
+              <i class="bi bi-circle"></i><span>List Of Banner Bundle</span>
+            </a>
+          </li>
+          <li>
+            <a href="@route('admin.banner-bundle.create')">
+              <i class="bi bi-circle"></i><span>Create Of Banner Bundle</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Forms Nav -->
+
         <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-category" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i><span>Category</span><i class="bi bi-chevron-down ms-auto"></i>
