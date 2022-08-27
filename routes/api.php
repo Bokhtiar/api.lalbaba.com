@@ -36,9 +36,10 @@ Route::middleware(['auth:api', 'cors'])->group(function () {
     Route::get('/cart/list', [App\Http\Controllers\Api\CartController::class, 'index']);
 
     /*order */
-    Route::group(["as"=>'order.', "prefix"=>'order'],function(){
-        Route::post('/store', [App\Http\Controllers\Api\OrderController::class, 'store']);
-    });
+    Route::post('/order/store/{type?}', [App\Http\Controllers\Api\OrderController::class, 'store']);
+    // Route::group(["as"=>'order.', "prefix"=>'order'],function(){
+    //     Route::post('/store/{type?}', [App\Http\Controllers\Api\OrderController::class, 'store']);
+    // });
 
     /*wishlist */
     Route::group(["as"=>'wishlist.', "prefix"=>'wishlist'],function(){
@@ -68,8 +69,6 @@ Route::group(['middleware' => ['cors']], function () {
     Route::get('/subcategory/product/{id?}/{type?}', [App\Http\Controllers\Api\ProductController::class, 'subCategoryProduct']);
     Route::get('/product/show/{id?}', [App\Http\Controllers\Api\ProductController::class, 'show']);
 
-
-      
 });
 
 

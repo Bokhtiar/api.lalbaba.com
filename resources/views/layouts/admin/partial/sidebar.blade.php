@@ -82,6 +82,50 @@
         </ul>
       </li><!-- End subcategory Nav -->
 
+      
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-report" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Report</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-report" class="nav-content collapse " data-bs-parent="#sidebar-report">
+          <li>
+            <a href="@route('admin.report.today')">
+              <i class="bi bi-circle"></i><span>Current Today</span>
+            </a>
+          </li>
+          <li>
+            <a href="@route('admin.report.yesterday')">
+              <i class="bi bi-circle"></i><span>Current Yesterday</span>
+            </a>
+          </li>
+          
+          <li>
+            <a href="@route('admin.report.week')">
+              <i class="bi bi-circle"></i><span>Current Week</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="@route('admin.report.month')">
+              <i class="bi bi-circle"></i><span>Current Month</span>
+            </a>
+          </li>
+          <li>
+            <a href="@route('admin.report.year')">
+              <i class="bi bi-circle"></i><span>Current Year</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="@route('admin.report.between')">
+              <i class="bi bi-circle"></i><span>Date To Date</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End subcategory Nav -->
+
+
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-product" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i><span>Product</span><i class="bi bi-chevron-down ms-auto"></i>

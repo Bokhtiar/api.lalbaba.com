@@ -17,7 +17,6 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-
         $validated = Order::query()->Validation($request->all());
         if($validated){
             try{

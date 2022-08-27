@@ -65,6 +65,16 @@ Route::group(["as"=>'admin.', "prefix"=>'admin', "middleware"=>['auth','admin']]
     });
     Route::get('cart/destroy/{id}', [OrderController::class, 'cart_destroy']);
     Route::get('order/status/{id}', [ProductController::class, 'status'])->name('order.status');
+
+    /*report generate*/
+    Route::group(["as"=>'report.', "prefix"=>'report'],function(){
+        Route::get('/today', [App\Http\Controllers\Admin\ReportController::class, 'today'])->name('today');
+        Route::get('/week', [App\Http\Controllers\Admin\ReportController::class, 'week'])->name('week');
+        Route::get('/yesterday', [App\Http\Controllers\Admin\ReportController::class, 'yesterday'])->name('yesterday');
+        Route::get('/month', [App\Http\Controllers\Admin\ReportController::class, 'month'])->name('month');
+        Route::get('/year', [App\Http\Controllers\Admin\ReportController::class, 'year'])->name('year');
+        Route::get('/between', [App\Http\Controllers\Admin\ReportController::class, 'between'])->name('between');
+    });
 });
 
 
