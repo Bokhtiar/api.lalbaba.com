@@ -174,6 +174,24 @@
         </ul>
       </li><!-- End Forms Nav -->
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-coupone" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Coupone</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-coupone" class="nav-content collapse " data-bs-parent="#sidebar-coupone">
+          <li>
+            <a href="@route('admin.coupone.index')">
+              <i class="bi bi-circle"></i><span>List Of Coupone</span>
+            </a>
+          </li>
+          <li>
+            <a href="@route('admin.coupone.create')">
+              <i class="bi bi-circle"></i><span>Create Of Coupone</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End coupon Code Nav -->
+
 
       {{-- <li class="nav-heading">Pages</li> --}}
 
@@ -188,6 +206,7 @@
     </ul>
 
   </aside>
+  <!--modal date filtering -->
   <div class="modal fade" id="basicModal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BannerBundleController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CouponeController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubCategoryController;
@@ -47,6 +48,10 @@ Route::group(["as"=>'admin.', "prefix"=>'admin', "middleware"=>['auth','admin']]
     /*Sub category */
     Route::resource('subcategory', SubCategoryController::class);
     Route::get('subcategory/status/{id}', [SubCategoryController::class, 'status'])->name('subcategory.status');
+
+    /*coupone */
+    Route::resource('coupone', CouponeController::class);
+    Route::get('coupone/status/{id}', [CouponeController::class, 'status'])->name('coupone.status');
 
     /*Product */
     Route::resource('product', ProductController::class);

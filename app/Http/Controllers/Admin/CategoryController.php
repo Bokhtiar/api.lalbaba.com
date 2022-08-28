@@ -53,7 +53,7 @@ class CategoryController extends Controller
                 ]);
 
                 if (!empty($category)) {
-                    DB::commit();
+                    DB::commit(); 
                     return redirect()->route('admin.category.index')->with('success','category Created successfully!');
                 }
                 throw new \Exception('Invalid About Information');
