@@ -73,7 +73,7 @@ Route::group(["as"=>'admin.', "prefix"=>'admin', "middleware"=>['auth','admin']]
         Route::get('/yesterday', [App\Http\Controllers\Admin\ReportController::class, 'yesterday'])->name('yesterday');
         Route::get('/month', [App\Http\Controllers\Admin\ReportController::class, 'month'])->name('month');
         Route::get('/year', [App\Http\Controllers\Admin\ReportController::class, 'year'])->name('year');
-        Route::get('/between', [App\Http\Controllers\Admin\ReportController::class, 'between'])->name('between');
+        Route::post('/filter', [App\Http\Controllers\Admin\ReportController::class, 'filter'])->name('filter');
     });
 });
 

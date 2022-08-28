@@ -116,11 +116,11 @@
               <i class="bi bi-circle"></i><span>Current Year</span>
             </a>
           </li>
-
           <li>
-            <a href="@route('admin.report.between')">
-              <i class="bi bi-circle"></i><span>Date To Date</span>
+            <a href="" data-bs-toggle="modal" data-bs-target="#basicModal">
+              <i class="bi bi-circle"></i><span>Date to Date Filter</span>
             </a>
+
           </li>
         </ul>
       </li><!-- End subcategory Nav -->
@@ -188,3 +188,34 @@
     </ul>
 
   </aside>
+  <div class="modal fade" id="basicModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Date TO Date Filter </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{{ route('admin.report.filter') }}" method="POST">
+            @csrf
+            <div class="form-group">
+              <label for="">Start Date</label>
+              <input required type="date" name="startDate" class="form-control" placeholder="start Date" id="">
+            </div>
+
+            <div class="form-group">
+              <label for="">End Date</label>
+              <input type="date" name="endDate" class="form-control" placeholder="end Date" id="">
+            </div>
+            <div class="my-2">
+              <input type="submit" class="btn btn-success" value="Date Filter" name="" id="">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>

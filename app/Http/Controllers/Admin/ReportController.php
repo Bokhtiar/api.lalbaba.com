@@ -19,7 +19,7 @@ class ReportController extends Controller
         $orders = Order::whereDate('created_at', Carbon::today())->get();
         $pageTitle = "Current Today Report";
         $total_order = $orders->count();
-        return view('admin.modules.report.report', compact('orders', 'pageTitle','total_order'));
+        return view('admin.modules.report.report', compact('orders', 'pageTitle', 'total_order'));
     }
 
     /**
@@ -32,7 +32,7 @@ class ReportController extends Controller
         $orders = Order::whereDate('created_at', Carbon::yesterday())->get();
         $pageTitle = "Current Yesterday Report";
         $total_order = $orders->count();
-        return view('admin.modules.report.report', compact('orders', 'pageTitle','total_order'));
+        return view('admin.modules.report.report', compact('orders', 'pageTitle', 'total_order'));
     }
 
     /**
@@ -44,11 +44,11 @@ class ReportController extends Controller
     public function month(Request $request)
     {
         $orders = Order::whereMonth('created_at', date('m'))
-        ->whereYear('created_at', date('Y'))
-        ->get();
+            ->whereYear('created_at', date('Y'))
+            ->get();
         $pageTitle = "Current Month Report";
         $total_order = $orders->count();
-        return view('admin.modules.report.report', compact('orders', 'pageTitle','total_order'));
+        return view('admin.modules.report.report', compact('orders', 'pageTitle', 'total_order'));
     }
 
     /**
@@ -62,7 +62,7 @@ class ReportController extends Controller
         $orders = Order::whereYear('created_at', date('Y'))->get();
         $pageTitle = "Current Year Report";
         $total_order = $orders->count();
-        return view('admin.modules.report.report', compact('orders', 'pageTitle','total_order'));
+        return view('admin.modules.report.report', compact('orders', 'pageTitle', 'total_order'));
     }
 
     /**
@@ -76,8 +76,7 @@ class ReportController extends Controller
         $orders = Order::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
         $pageTitle = "Current Week Report";
         $total_order = $orders->count();
-        return view('admin.modules.report.report', compact('orders', 'pageTitle','total_order'));
-
+        return view('admin.modules.report.report', compact('orders', 'pageTitle', 'total_order'));
     }
 
     /**
@@ -86,16 +85,28 @@ class ReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function between(Request $request)
+    public function filter(Request $request)
     {
-        $startDate = Carbon::createFromFormat('d/m/Y', $request->startDate);
-        $endDate = Carbon::createFromFormat('d/m/Y', $request->endDate);
-  
-        $orders = Order::where('created_at', '>=', $startDate)
-                        ->where('created_at', '<=', $endDate)
-                        ->get();
-        $pageTitle = "Between Date To Date Report";
+        if ($request->endDate == null) {
+            $start_date = Carbon::parse($request->startDate)
+                ->toDateTimeString();
+
+            $orders = Order::whereDate('created_at', $start_date)->get();
+        } else {
+            $start_date = Carbon::parse($request->startDate)
+                ->toDateTimeString();
+
+            $end_date = Carbon::parse($request->endDate)
+                ->toDateTimeString();
+
+            $orders = Order::where('created_at', [
+                $start_date, $end_date
+            ])->get();
+        }
+
+
+        $pageTitle = "Filter Date To Date Report";
         $total_order = $orders->count();
-    return view('admin.modules.report.BetweenDate', compact('orders', 'pageTitle','total_order'));
+        return view('admin.modules.report.DateFilter', compact('orders', 'pageTitle', 'total_order'));
     }
 }
