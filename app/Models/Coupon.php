@@ -19,7 +19,9 @@ class Coupon extends Model
         'coupon_id',
         'title',
         'discount',
-        'code'
+        'code',
+        'min_price'
+
     ];
 
     public function scopeValidation($value, $request){
@@ -27,6 +29,7 @@ class Coupon extends Model
             'title' => 'string | required | max:15 | min:3',
             'code' => 'string | required | max:15 | min:3',
             'discount' => 'integer | required',
+            'min_price' => 'required',
         ])->validate();
     }
 }

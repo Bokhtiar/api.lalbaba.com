@@ -63,6 +63,12 @@
                         placeholder="type here online discount number">
                 </div>
 
+                <div class="col-md-12 col-lg-12 my-2">
+                    <label for="" class="form-label">Coupon Min Price<span class="text-danger">*</span></label>
+                    <input required type="text" class="form-control" name="min_price" value="{{ @$edit->title }}"
+                        placeholder="type here min price">
+                </div>
+
 
                 <div class="col-md-12 col-lg-12 my-2">
                     <label for="" class="form-label">Coupone Code <span class="text-danger"></span></label>

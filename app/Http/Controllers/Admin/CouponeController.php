@@ -49,7 +49,8 @@ class CouponeController extends Controller
                 $coupone = Coupon::create([
                     'title' => $request->title,
                     'discount' => $request->discount,
-                    'code' => $request->code
+                    'code' => $request->code,
+                    'min_price' => $request->min_price,
                 ]);
 
                 if (!empty($coupone)) {
@@ -104,7 +105,8 @@ class CouponeController extends Controller
                 $coupone = $update->update([
                     'title' => $request->title,
                     'discount' => $request->discount,
-                    'code' => $request->code
+                    'code' => $request->code,
+                    'min_price' => $request->min_price,
                 ]);
 
                 if (!empty($coupone)) {

@@ -43,6 +43,7 @@
                                     <th scope="col">Title</th>
                                     <th scope="col">Discount %</th>
                                     <th scope="col">Code</th>
+                                    <th scope="col">Min Order</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -54,6 +55,7 @@
                                         <td>{{ $item->title }}</td>
                                         <td>{{ $item->discount }} %</td>
                                         <td>{{ $item->code }}</td>
+                                        <td>{{ $item->min_price }} Tk</td>
 
                                         <td>
                                             @if ($item->status == 1)
@@ -73,8 +75,6 @@
                                                 <button class="btn btn-sm btn-danger" type="submit"> <i
                                                     class="ri-delete-bin-6-fill"></i></button>
                                             </form>
-
-
                                         </td>
                                     </tr>
                                 @empty

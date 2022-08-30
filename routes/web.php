@@ -80,6 +80,14 @@ Route::group(["as"=>'admin.', "prefix"=>'admin', "middleware"=>['auth','admin']]
         Route::get('/year', [App\Http\Controllers\Admin\ReportController::class, 'year'])->name('year');
         Route::post('/filter', [App\Http\Controllers\Admin\ReportController::class, 'filter'])->name('filter');
     });
+
+    /**profile */
+    Route::group(["as"=>'profile.', "prefix"=>'profile'],function(){
+        Route::get('/info', [App\Http\Controllers\Admin\SettingController::class, 'info'])->name('info');
+        Route::get('/account', [App\Http\Controllers\Admin\SettingController::class, 'account'])->name('account');
+        Route::post('/account/update/{id}', [App\Http\Controllers\Admin\SettingController::class, 'accountUpdate'])->name('account.update');
+        Route::post('/change/password', [App\Http\Controllers\Admin\SettingController::class, 'changePassword'])->name('change.password');
+    });
 });
 
 

@@ -18,6 +18,7 @@ class CreateCouponsTable extends Migration
             $table->string('title');
             $table->string('code');
             $table->integer('discount');
+            $table->string('min_price');
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
