@@ -8,6 +8,7 @@ use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\Referral;
 use App\Models\User;
+use App\Models\ZipBundle;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -202,6 +203,7 @@ class OrderController extends Controller
         $referral_balance = null;
         $payment_balance = null;
         $coupone_balance = null;
+        $delivery_charge = null;
         /**check user referral type */
         if($request->referral_type){
             /**another referral coe use */
@@ -305,6 +307,11 @@ class OrderController extends Controller
             }
         }
         
+        /**zip bundle */
+        if($request->zip_code){
+            /**check how many charge the zip code */
+            $delivery_charge = ZipBundle::query()->Delivery_charge($request->zip_code);
+        }
         /**store in database order table */
         $validated = Order::query()->Validation($request->all());
         if($validated){
@@ -329,6 +336,8 @@ class OrderController extends Controller
                     'referral_type' => $request->referral_type,
                     'coupone_balance' => isset($coupone_balance) ? $coupone_balance : 0,
                     'coupone_code' => $request->coupone_code,
+                    'zip_code' => $request->zip_code,
+                    'delivery_charge' => isset($delivery_charge) ? $delivery_charge : 0,
                 ]);
 
                 if (!empty($order)) {

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\ApiResponseTrait;
 use App\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,6 +14,7 @@ class ZipBundle extends Model
     use CrudTrait;
     protected $table='zip_bundles';
     protected $primaryKey='zip_bundle_id';
+    use ApiResponseTrait;
 
     protected $fillable = [
         'title',
@@ -28,4 +30,17 @@ class ZipBundle extends Model
         ])->validate();
     }
 
+
+    /**when user order then calculate her delivery charge zip code ways */
+    public function ScopeDelivery_charge($value, $request){
+        $zips = ZipBundle::all();
+        foreach ($zips as $zip) {
+             $zipList = json_decode($zip->zip_codes);
+             foreach ($zipList as $z) {
+                 if($z == $request){
+                    return $zip->price;
+                 }
+             }
+        }
+    }
 }

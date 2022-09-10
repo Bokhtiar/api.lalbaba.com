@@ -40,6 +40,9 @@ class CreateOrdersTable extends Migration
 
             $table->string('coupone_balance')->nullable();
             $table->string('coupone_code')->nullable();
+
+            $table->string('delivery_charge')->nullable();
+            $table->string('zip_code')->nullable();
             
             
             $table->tinyInteger('status')->default(0);

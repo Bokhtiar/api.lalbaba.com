@@ -39,6 +39,10 @@ class Order extends Model
         'referral_type',
         'coupone_balance',
         'coupone_code',
+
+        'delivery_charge',
+        'zip_code',
+        
         'status'
     ];
 

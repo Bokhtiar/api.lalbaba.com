@@ -106,6 +106,11 @@ class ZipCodeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            ZipBundle::find($id)->delete();
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            echo $th->getMessage();
+        }
     }
 }
