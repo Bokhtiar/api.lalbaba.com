@@ -33,7 +33,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::query()->Active()->get(['category_id', 'name', 'type', 'status']);
+        $categories = Category::query()->Active()->get(['category_id', 'name', 'status']);
         $subcategories = SubCategory::query()->Active()->get(['sub_category_id', 'name', 'status']);
         return view('admin.modules.product.createOrUpdate', compact('categories','subcategories'));
     }

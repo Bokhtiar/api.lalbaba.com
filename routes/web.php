@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\VariantController;
+use App\Http\Controllers\Admin\ZipCodeController;
 use App\Mail\PasswordReset;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -88,6 +89,9 @@ Route::group(["as"=>'admin.', "prefix"=>'admin', "middleware"=>['auth','admin']]
         Route::post('/account/update/{id}', [App\Http\Controllers\Admin\SettingController::class, 'accountUpdate'])->name('account.update');
         Route::post('/change/password', [App\Http\Controllers\Admin\SettingController::class, 'changePassword'])->name('change.password');
     });
+
+    /**Zip code */
+    Route::resource('zip-code', ZipCodeController::class);
 });
 
 

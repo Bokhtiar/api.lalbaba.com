@@ -101,7 +101,7 @@
                     <tr>
                         <td>
                             <input type="hidden" name="properties[0][id]" placeholder="Enter id" class="form-control" value="0" />
-                          <input type="text" value="" name="properties[0][title]" placeholder="Enter title" class="form-control" />
+                            <input type="text" value="" name="properties[0][title]" placeholder="Enter title" class="form-control" />
                         </td>
                         <td>
                           <input type="text" name="properties[0][price]" placeholder="Enter price" class="form-control" />

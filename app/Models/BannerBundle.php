@@ -28,7 +28,6 @@ class BannerBundle extends Model
         return Validator::make($request, [
             'title' => 'string | required | max:15 | min:3',
         ])->validate();
-
     }
 
     public function scopeImage($value, $request){
