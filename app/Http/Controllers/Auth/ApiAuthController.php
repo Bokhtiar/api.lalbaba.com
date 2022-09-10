@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 class ApiAuthController extends Controller
 {
     use ApiResponseTrait;
-   
+
     /*regestration */
     public function register (Request $request) {
         $validator = Validator::make($request->all(), [
@@ -34,15 +34,21 @@ class ApiAuthController extends Controller
         //$user = User::create($request->toArray());
 
         $user = User::where('email', $request->email)->where('verify_code', $request->verify_code)->where('password', null)->first();
+
         if(!$user){
             return $this->ErrorResponse('Something Wrong...!');
         }
-        
+
 
         $user->password = Hash::make($request['password']);
+
+        $length = 8;
+       $str = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcefghijklmnopqrstuvwxyz';
+       
+        $user->referral_code = substr(str_shuffle($str), 0, $length);
         //$user->remember_token = Str::random(10);
         $user->save();
-        
+
         $token = $user->createToken('Laravel Password Grant Client')->accessToken;
         $response = ['token' => $token];
 
@@ -89,7 +95,7 @@ class ApiAuthController extends Controller
      /*reset Password*/
     public function resetPassword(Request $request){
         $existEmail = User::where('email', $request->email)->first();
-       
+
         if(!$existEmail){
             $message = "Email Is Invalid";
             return $this->ErrorResponse($message);
@@ -114,10 +120,10 @@ class ApiAuthController extends Controller
             'old_password'=>'required',
             'password'=>'required|confirmed',
           ]);
-        
+
           $hashedpassword=Auth::user()->password;
             if (Hash::check($request->old_password,$hashedpassword)) {
-               
+
                 if(!Hash::check($request->password,$hashedpassword)){
                   $user=User::find(Auth::id());
                   $user->password=Hash::make($request->password);

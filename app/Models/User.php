@@ -24,6 +24,8 @@ class User extends Authenticatable
         'password',
         'role_id',
         'verify_code',
+        'referral_code',
+        'referral_wallet',
     ];
 
     /**

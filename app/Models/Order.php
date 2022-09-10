@@ -34,6 +34,11 @@ class Order extends Model
         
         'payment_type',
         'payment_balance',
+        'referral_balance',
+        'total_balance',
+        'referral_type',
+        'coupone_balance',
+        'coupone_code',
         'status'
     ];
 
@@ -47,7 +52,7 @@ class Order extends Model
             'address_2' => 'string | required',
             'message' => 'string | required',
             'payment_type' => 'string | required',
-            'payment_balance' => 'string | required',
+            'total_balance' => 'string | required',
         ])->validate();
     }
 

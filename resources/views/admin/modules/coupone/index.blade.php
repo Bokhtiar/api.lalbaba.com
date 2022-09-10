@@ -44,6 +44,8 @@
                                     <th scope="col">Discount %</th>
                                     <th scope="col">Code</th>
                                     <th scope="col">Min Order</th>
+                                    <th scope="col">Max Order</th>
+                                    <th scope="col">Use Coupone</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -53,9 +55,23 @@
                                     <tr>
                                         <th scope="row">{{ $loop->index + 1 }}</th>
                                         <td>{{ $item->title }}</td>
-                                        <td>{{ $item->discount }} %</td>
+                                        <td>
+                                            @isset($item->discount_percentage)
+                                                {{ $item->discount_percentage }} %
+                                            @endisset
+                                                
+                                            @isset($item->discount_flat)
+                                                {{ $item->discount_flat }}
+                                            @endisset
+                                            
+                                        
+                                        </td>
                                         <td>{{ $item->code }}</td>
                                         <td>{{ $item->min_price }} Tk</td>
+                                        <td>{{ $item->max_price }} Tk</td>
+                                        <td>{{
+                                                App\Models\Order::where('coupone_code', $item->code)->count();
+                                            }}</td>
 
                                         <td>
                                             @if ($item->status == 1)

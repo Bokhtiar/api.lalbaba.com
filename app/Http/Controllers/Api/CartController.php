@@ -108,7 +108,7 @@ class CartController extends Controller
                 'product_image' => $product->image,
                 'ip_address'=> request()->ip(),
             ]);
-            dd('test');
+          
             $this->updatePrice($cart);
 
             $carts = Cart::where('user_id', Auth::id())

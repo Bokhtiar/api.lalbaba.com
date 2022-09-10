@@ -57,17 +57,31 @@
                         placeholder="type here Coupone Title">
                 </div>
 
-                <div class="col-md-12 col-lg-12 my-2">
-                    <label for="" class="form-label">Coupone Discount % <span class="text-danger">*</span></label>
-                    <input required type="text" class="form-control" name="discount" value="{{ @$edit->title }}"
-                        placeholder="type here online discount number">
+                <div class="col-md-6 col-lg-6 my-2">
+                    <label for="" class="form-label">Coupone Discount Percentage <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="discount_percentage" value="{{ @$edit->discount_percentage }}"
+                        placeholder="type here only amount of percentage ex 10">
                 </div>
 
-                <div class="col-md-12 col-lg-12 my-2">
+                <div class="col-md-6 col-lg-6 my-2">
+                    <label for="" class="form-label">Coupone Discount Flat<span class="text-danger"></span></label>
+                    <input type="text" class="form-control" name="discount_flat" value="{{ @$edit->discount_flat }}"
+                        placeholder="type here online discount flat">
+                </div>
+
+                <div class="col-md-6 col-lg-6 my-2">
                     <label for="" class="form-label">Coupon Min Price<span class="text-danger">*</span></label>
-                    <input required type="text" class="form-control" name="min_price" value="{{ @$edit->title }}"
+                    <input required type="text" class="form-control" name="min_price" value="{{ @$edit->min_price }}"
                         placeholder="type here min price">
                 </div>
+
+                <div class="col-md-6 col-lg-6 my-2">
+                    <label for="" class="form-label">Coupon Max Price<span class="text-danger"></span></label>
+                    <input type="text" class="form-control" name="max_price" value="{{ @$edit->max_price }}"
+                        placeholder="type here min price">
+                </div>
+
+              
 
 
                 <div class="col-md-12 col-lg-12 my-2">

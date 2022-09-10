@@ -34,6 +34,14 @@ class CreateOrdersTable extends Migration
 
             $table->string('payment_type')->require();
             $table->integer('payment_balance')->require();
+            $table->string('referral_balance');
+            $table->string('referral_type')->nullable();
+            $table->string('total_balance')->require();
+
+            $table->string('coupone_balance')->nullable();
+            $table->string('coupone_code')->nullable();
+            
+            
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });

@@ -48,9 +48,12 @@ class CouponeController extends Controller
                 DB::beginTransaction();
                 $coupone = Coupon::create([
                     'title' => $request->title,
-                    'discount' => $request->discount,
+                    'discount_percentage' => $request->discount_percentage,
+                    'discount_flat' => $request->discount_flat,
                     'code' => $request->code,
                     'min_price' => $request->min_price,
+                    'max_price' => $request->max_price,
+                    'max_price_above_discount' => $request->max_price_above_discount,
                 ]);
 
                 if (!empty($coupone)) {
@@ -104,9 +107,12 @@ class CouponeController extends Controller
                 DB::beginTransaction();
                 $coupone = $update->update([
                     'title' => $request->title,
-                    'discount' => $request->discount,
+                    'discount_percentage' => $request->discount_percentage,
+                    'discount_flat' => $request->discount_flat,
                     'code' => $request->code,
                     'min_price' => $request->min_price,
+                    'max_price' => $request->max_price,
+                    'max_price_above_discount' => $request->max_price_above_discount,
                 ]);
 
                 if (!empty($coupone)) {

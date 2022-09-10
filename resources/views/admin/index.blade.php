@@ -6,7 +6,7 @@
     <h1>Dashboard</h1>
     <nav>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>               
         <li class="breadcrumb-item active">Dashboard</li>
       </ol>
     </nav>
@@ -15,6 +15,13 @@
   <section class="section dashboard">
     <div class="row">
 
+<?php
+$length = 8;
+$str = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcefghijklmnopqrstuvwxyz';
+
+$code = substr(str_shuffle($str), 0, $length);
+echo $code;
+?>
       <!-- Left side columns -->
       <div class="col-lg-8">
         <div class="row">

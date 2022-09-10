@@ -18,17 +18,19 @@ class Coupon extends Model
     protected $fillable = [
         'coupon_id',
         'title',
-        'discount',
+        'discount_percentage',
+        'discount_flat',
         'code',
-        'min_price'
-
+        'min_price',
+        'max_price',
+'        max_price_above_discount'
     ];
 
-    public function scopeValidation($value, $request){
+    public function scopeValidation($value, $request)
+    {
         return Validator::make($request, [
             'title' => 'string | required | max:15 | min:3',
             'code' => 'string | required | max:15 | min:3',
-            'discount' => 'integer | required',
             'min_price' => 'required',
         ])->validate();
     }

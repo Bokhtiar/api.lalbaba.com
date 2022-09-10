@@ -41,6 +41,8 @@ Route::middleware(['auth:api', 'cors'])->group(function () {
     //     Route::post('/store/{type?}', [App\Http\Controllers\Api\OrderController::class, 'store']);
     // });
 
+    /*referral list*/
+    Route::get('/referral/list', [App\Http\Controllers\Api\ReferralController::class, 'index']);
     /*wishlist */
     Route::group(["as"=>'wishlist.', "prefix"=>'wishlist'],function(){
         Route::post('/store/{type?}/{id?}', [App\Http\Controllers\Api\WishlistController::class, 'store']);
