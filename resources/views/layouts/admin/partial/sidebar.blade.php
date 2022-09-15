@@ -212,6 +212,19 @@
       </li><!-- End coupon Code Nav -->
 
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-abondoned" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Abondoned</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-abondoned" class="nav-content collapse " data-bs-parent="#sidebar-coupone">
+          <li>
+            <a href="@route('admin.abondoned.index')">
+              <i class="bi bi-circle"></i><span>Abondone Cart List</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End coupon Code Nav -->
+
       {{-- <li class="nav-heading">Pages</li> --}}
 
 {{--

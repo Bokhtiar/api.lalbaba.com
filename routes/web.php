@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbondoneCartController;
 use App\Http\Controllers\Admin\BannerBundleController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -53,6 +54,9 @@ Route::group(["as"=>'admin.', "prefix"=>'admin', "middleware"=>['auth','admin']]
     /*coupone */
     Route::resource('coupone', CouponeController::class);
     Route::get('coupone/status/{id}', [CouponeController::class, 'status'])->name('coupone.status');
+
+    /*coupone */
+    Route::resource('abondoned', AbondoneCartController::class);
 
     /*Product */
     Route::resource('product', ProductController::class);

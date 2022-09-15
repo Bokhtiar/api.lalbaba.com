@@ -25,6 +25,7 @@ class CreateCartsTable extends Migration
             $table->integer('order_id')->nullable();
             $table->string('ip_address');
             $table->integer('quantity')->default(1);
+            $table->string('discount')->nullable();
             $table->string('type')->require();
             $table->tinyInteger('status')->default(0);
             $table->timestamps(); 
