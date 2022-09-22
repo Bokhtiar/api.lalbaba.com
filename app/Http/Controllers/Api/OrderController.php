@@ -22,18 +22,18 @@ class OrderController extends Controller
     // public function store(Request $request)
     // {
     //     if($request->referral_code){
-    //         if(Auth::user()->referral_code == $request->referral_code){ //owner referral code not use 
+    //         if(Auth::user()->referral_code == $request->referral_code){ //owner referral code not use
     //             return $this->ErrorResponse("Your Referrel Code not for your");
     //         }else{ //owner referral code not use
     //             $referral = Referral::where('referral_code', $request->referral_code)
     //                                 ->where('user_id', Auth::id())->first();
-                
+
     //             if($referral){//owner her referral code multiple user give the code one use can use one time not multiple time
     //                 return $this->ErrorResponse("you have already you this referral code");
     //             }else{//owner her referral code multiple user give the code one use can use one time not multiple time
-                    
+
     //                 /**store referral code table  */
-    //                 $referral_amount = 10; 
+    //                 $referral_amount = 10;
     //                 $rfl = new Referral;
     //                 $rfl->user_id = Auth::id();
     //                 $rfl->referral_code = $request->referral_code;
@@ -43,12 +43,12 @@ class OrderController extends Controller
     //                 /**balance calculate */
     //                 $referral_balance = $referral_amount;
     //                 $payment_balance = $request->total_balance - $referral_amount;
-                    
+
     //                 $validated = Order::query()->Validation($request->all());
     //                 if($validated){
     //                     try{
     //                         DB::beginTransaction();
-                            
+
     //                         $order = Order::create([
     //                             'f_name' => $request->f_name,
     //                             'l_name' => $request->l_name,
@@ -92,15 +92,15 @@ class OrderController extends Controller
     //             if($request->total_balance <= 600){
     //                 return $this->SuccessResponse("minimun order balance above 600Taka");
     //             }
-                
+
     //             /** referral amount update user wallet */
     //             $admin_referal_waller_set = 3;
     //             /** user wallet balance updated*/
     //             $user_wallet_update = $referral_wallet_amount - $admin_referal_waller_set;
-                
+
     //             /** wallet balance deposite */
     //             $payment_balance =  $request->total_balance - $admin_referal_waller_set;
-                
+
     //             /** how much use amount her referel wallet  */
     //             $referral_balance = $admin_referal_waller_set;
 
@@ -112,7 +112,7 @@ class OrderController extends Controller
     //                 if($validated){
     //                     try{
     //                         DB::beginTransaction();
-                            
+
     //                         $order = Order::create([
     //                             'f_name' => $request->f_name,
     //                             'l_name' => $request->l_name,
@@ -146,15 +146,15 @@ class OrderController extends Controller
     //                         DB::rollBack();
     //                     }
     //                 }
-                
+
     //         }
-            
-            
+
+
     //         $validated = Order::query()->Validation($request->all());
     //                 if($validated){
     //                     try{
     //                         DB::beginTransaction();
-                            
+
     //                         $order = Order::create([
     //                             'f_name' => $request->f_name,
     //                             'l_name' => $request->l_name,
@@ -189,21 +189,29 @@ class OrderController extends Controller
     //                     }
     //                 }
 
-    //         return $this->SuccessResponse("order successfuly"); 
+    //         return $this->SuccessResponse("order successfuly");
     //     }
-       
-            
-        
+
+
+
     // }
 
 
     public function store(Request $request)
     {
-        
+
         $referral_balance = null;
         $payment_balance = null;
         $coupone_balance = null;
         $delivery_charge = null;
+
+
+
+        /**aboundoned balance check */
+        $aboundoned_balance = Order::AboundonedBalance();
+        //return $this->SuccessResponse($aboundoned_balance);
+        $pyament_balacance_with_aboundone_cart = $request->total_balance - $aboundoned_balance;
+        //return $this->SuccessResponse($pyament_balacance_with_aboundone_cart);
         /**check user referral type */
         if($request->referral_type){
             /**another referral coe use */
@@ -220,7 +228,7 @@ class OrderController extends Controller
                 if($referralExist){
                     return $this->ErrorResponse("you have already you this referral code");
                 }
-                    /**store referral code table  */ 
+                    /**store referral code table  */
                     $admin_set_referral_amount = 10;
                     $rfl = new Referral;
                     $rfl->user_id = Auth::id();
@@ -230,12 +238,12 @@ class OrderController extends Controller
 
                     /**owner referral code balance add */
                     $user_rfl_blnc = User::where("referral_code", $request->referral_code)->first();
-                    $user_rfl_blnc->referral_wallet = $user_rfl_blnc->referral_wallet + $admin_set_referral_amount; 
+                    $user_rfl_blnc->referral_wallet = $user_rfl_blnc->referral_wallet + $admin_set_referral_amount;
                     $user_rfl_blnc->save();
-                    
+
                     /**balance calculate */
                     $referral_balance = $admin_set_referral_amount;
-                    $payment_balance = $request->total_balance - $admin_set_referral_amount;
+                    $payment_balance = $request->total_balance - $admin_set_referral_amount - $aboundoned_balance;
 
             }
 
@@ -255,11 +263,11 @@ class OrderController extends Controller
                 if($request->total_balance <= 600){
                     return $this->SuccessResponse("minimun order balance above 600Taka");
                 }
-            
+
                 /** user wallet balance updated*/
                 $referral_wallet_amount = Referral::referral_wallet();
                 $user_wallet_update = $referral_wallet_amount-$admin_referal_wallet_set;
-                
+
                 $user = User::find(Auth::id());
                 $user->referral_wallet = $user_wallet_update;
                 $user->save();
@@ -267,8 +275,8 @@ class OrderController extends Controller
 
 
                 /** wallet balance deposite */
-                $payment_balance =  $request->total_balance - $admin_referal_wallet_set;
-                
+                $payment_balance =  $request->total_balance - $admin_referal_wallet_set - $aboundoned_balance;
+
                 /** how much use amount her referel wallet  */
                 $referral_balance = $admin_referal_wallet_set;
             }
@@ -290,34 +298,35 @@ class OrderController extends Controller
                 /**check max price */
                 if($request->total_balance >= $coupone->max_price){
                     $coupone_balance = $coupone->discount_percentage * 10;
-                    //return $this->SuccessResponse($coupone_balance); 
-                    $payment_balance = $request->total_balance - $coupone_balance;
+                    //return $this->SuccessResponse($coupone_balance);
+                    $payment_balance = $request->total_balance - $coupone_balance - $aboundoned_balance;
                 }else{
                     /**calculate percentage */
                     $coupone_balance = $coupone->discount_percentage * $request->total_balance / 100;
                     $payment_balance = $request->total_balance - $coupone_balance;
                 }
-                
+
             }
 
             /**check coupone code discount flat */
             if($coupone->discount_flat != null){
                 $coupone_balance = $coupone->discount_flat;
-                $payment_balance =  $request->total_balance - $coupone->discount_flat;
+                $payment_balance =  $request->total_balance - $coupone->discount_flat - $aboundoned_balance;
             }
         }
-        
+
         /**zip bundle */
         if($request->zip_code){
             /**check how many charge the zip code */
             $delivery_charge = ZipBundle::query()->Delivery_charge($request->zip_code);
         }
+
         /**store in database order table */
         $validated = Order::query()->Validation($request->all());
         if($validated){
             try{
                 DB::beginTransaction();
-                
+
                 $order = Order::create([
                     'f_name' => $request->f_name,
                     'l_name' => $request->l_name,
@@ -331,13 +340,14 @@ class OrderController extends Controller
                     'payment_number' => $request->payment_number,
                     'payment_type' => $request->payment_type,
                     'total_balance' => $request->total_balance,
-                    'payment_balance' =>  isset($payment_balance) ? $payment_balance : $request->total_balance,
+                    'payment_balance' =>  isset($payment_balance) ? $payment_balance : $pyament_balacance_with_aboundone_cart, //this variable $pyament_balacance_with_aboundone_cart aboundone card - total price becaus if aboundone balace then calculate total price otherways aboundone balce 0
                     'referral_balance' => isset($referral_balance) ? $referral_balance : 0,
                     'referral_type' => $request->referral_type,
                     'coupone_balance' => isset($coupone_balance) ? $coupone_balance : 0,
                     'coupone_code' => $request->coupone_code,
                     'zip_code' => $request->zip_code,
                     'delivery_charge' => isset($delivery_charge) ? $delivery_charge : 0,
+                    'aboundone_balance' => $aboundoned_balance,
                 ]);
 
                 if (!empty($order)) {
@@ -346,7 +356,7 @@ class OrderController extends Controller
                         $cart->save();
                     }
                     DB::commit();
-                    return $this->SuccessResponse("order successfuly"); 
+                    return $this->SuccessResponse("order successfuly");
                 }
                 throw new \Exception('Invalid About Information');
             }catch(\Exception $ex){
@@ -354,9 +364,9 @@ class OrderController extends Controller
                 DB::rollBack();
             }
         }
-                    
+
     }
 }
 
-    
+
 

@@ -43,7 +43,9 @@ class Cart extends Model
     public function scopePropertiesName($q, $property_id, $product_id)
     {
        $product = Product::find($product_id);
+       
        $property = $product->properties;
+       
        foreach ($property as $p) {
             if($p['id'] == $property_id){
                 return $p;

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use App\Traits\CrudTrait;
+use Illuminate\Support\Facades\Auth;
 
 class Order extends Model
 {
@@ -23,15 +24,15 @@ class Order extends Model
         'type',
         'address_1',
         'address_2',
-        'message', 
+        'message',
         'user_id',
-        
+
         'ordered',
         'packed',
         'out_for_delivery',
         'delivered',
         'payment_number',
-        
+
         'payment_type',
         'payment_balance',
         'referral_balance',
@@ -42,7 +43,8 @@ class Order extends Model
 
         'delivery_charge',
         'zip_code',
-        
+
+        'aboundone_balance',
         'status'
     ];
 
@@ -67,5 +69,19 @@ class Order extends Model
     public function scopeFindId($q, $id)
     {
         return self::find($id);
+    }
+
+    /**check Aboundoned Balance */
+    public static function AboundonedBalance()
+    {
+        $cart = Cart::where('user_id', Auth::id())
+            ->where('order_id', NULL)
+            ->get();
+
+        $total_aboundoned_balance = 0;
+        foreach ($cart as $v_cart) {
+            $total_aboundoned_balance += $v_cart->discount;
+        }
+        return $total_aboundoned_balance;
     }
 }

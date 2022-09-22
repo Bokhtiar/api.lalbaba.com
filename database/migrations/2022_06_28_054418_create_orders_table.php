@@ -44,7 +44,8 @@ class CreateOrdersTable extends Migration
             $table->string('delivery_charge')->nullable();
             $table->string('zip_code')->nullable();
             
-            
+            $table->string('aboundone_balance')->nullable();
+
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });

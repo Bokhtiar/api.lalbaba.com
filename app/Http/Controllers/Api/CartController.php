@@ -40,7 +40,7 @@ class CartController extends Controller
 
     public function store(Request $request)
     {
-        
+        // cart update
         if(Cart::where('product_id',$request->id)->where('order_id',null)
             ->where('user_id',Auth::id())
             ->where('property_id',$request->property_id)
@@ -96,7 +96,33 @@ class CartController extends Controller
                 "total_cart_price" => $total_cart_price
             ],200);
         }else{
+            // cart store
+            $property_price = null;
+            $regular_price = null;
+
             $product = Product::find($request->id);
+            $productProperties = $product->properties;
+
+            // check product properties
+            // if($product->properties == null){
+            //     $regular_price = $product->regular_price;
+            // }else{
+            //     foreach ($productProperties as $property) {
+            //         if($property['id'] == $request->property_id){
+            //             $property_price = $property['price'];
+            //         }
+            //     }
+            // }
+            foreach ($productProperties as $property) {
+                if($property['id'] == 0 && $property['title'] == null){
+                    $regular_price = $product->regular_price;
+                }else{
+                    if($property['id'] == $request->property_id){
+                        $property_price = $property['price'];
+                    }
+                }
+            }
+
             
             $cart = Cart::create([
                 'user_id'=> Auth::id(),
@@ -104,7 +130,7 @@ class CartController extends Controller
                 'property_id' => $request->property_id,
                 'type' => $request->type,
                 'product_name' => $product->name,
-                'product_price' => $product->regular_price,
+                'product_price' => isset($property_price) ? $property_price : $regular_price,
                 'product_image' => $product->image,
                 'ip_address'=> request()->ip(),
             ]);

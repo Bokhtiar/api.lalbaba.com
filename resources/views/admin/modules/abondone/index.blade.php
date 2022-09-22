@@ -52,10 +52,32 @@
                                         {{-- {{ dd($item->property_id) }} --}}
                                         <td>
                                             @php
+                                            $productProperties = $item->product->properties;
+                                            @endphp
+                                            @foreach ($productProperties as $property) 
+                                                @if($property['id'] == 0 && $property['title'] == null)
+                                                    <span> Regular Price: {{ $item->product_price }} </span>
+                                                @else
+                                                   @php
+                                                        $p = App\Models\Cart::query()->PropertiesName($item->property_id, $item->product_id);
+                                                   @endphp
+                                                      <span>
+                                                        Variant: 
+                                                        {{ $p['title']  }} |
+                                                        {{ $p['price']  }} Tk
+                                                      </span>
+                                                @endif
+
+                                                @break 
+                                            @endforeach
+
+
+
+                                            {{-- @php
                                                 $p = App\Models\Cart::query()->PropertiesName($item->property_id, $item->product_id) 
                                             @endphp
                                             {{ $p['title'] }} |
-                                            {{ $p['price'] }}Tk
+                                            {{ $p['price'] }}Tk --}}
                                         </td>
                                         <td>{{ $item->product_price }}</td>
                                         <td>{{ $item->type }}</td>

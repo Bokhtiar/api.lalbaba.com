@@ -55,7 +55,7 @@ Route::group(["as"=>'admin.', "prefix"=>'admin', "middleware"=>['auth','admin']]
     Route::resource('coupone', CouponeController::class);
     Route::get('coupone/status/{id}', [CouponeController::class, 'status'])->name('coupone.status');
 
-    /*coupone */
+    /*aboundoned */
     Route::resource('abondoned', AbondoneCartController::class);
 
     /*Product */
